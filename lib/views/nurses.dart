@@ -27,7 +27,7 @@ class Nurses extends StatelessWidget {
                       child: Column(
                         children: [
                           Padding(
-                            padding: getDeviceType() == Device.Tablet?EdgeInsets.only(top: 35.h, bottom: 25.h):EdgeInsets.only(top: 30.h, bottom: 25.h),
+                            padding: getDeviceType() == Device.Tablet?EdgeInsets.only(top: 35.h, bottom: 20.h):EdgeInsets.only(top: 30.h, bottom: 25.h),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: ToggleSwitch(
