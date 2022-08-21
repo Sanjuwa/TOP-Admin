@@ -42,7 +42,7 @@ class Nurses extends StatelessWidget {
                                 cornerRadius: 5.r,
                                 animate: true,
                                 animationDuration: 200,
-                                minHeight: getDeviceType() == Device.Tablet?45.h:35,
+                                minHeight: getDeviceType() == Device.Tablet?40.h:35,
                                 curve: Curves.easeIn,
                                 customWidths: ["All", ...specialities].map((e) => (getDeviceType() == Device.Tablet?e.length * 5+70.w:e.length * 5+70.w)).toList(),
                                 onToggle: (index){},
