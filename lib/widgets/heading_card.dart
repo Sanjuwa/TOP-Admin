@@ -31,7 +31,7 @@ class HeadingCard extends StatelessWidget {
                   bottom: Radius.circular(15.r),
                 ),
               ),
-              padding: getDeviceType() == Device.Tablet?tabletSize ?? EdgeInsets.symmetric(horizontal: 50.w,vertical: 15.h):phoneSize ?? EdgeInsets.symmetric(horizontal: 60.w,vertical: 15.h),
+              padding: getDeviceType() == Device.Tablet?tabletSize ?? EdgeInsets.symmetric(horizontal: 50.w,vertical: 12.h):phoneSize ?? EdgeInsets.symmetric(horizontal: 60.w,vertical: 15.h),
               child: Text(
                 title,
                 style: TextStyle(

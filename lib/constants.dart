@@ -9,6 +9,8 @@ final kOrange = Color(0xffE68C36);
 
 enum Device {Tablet, Phone}
 
+enum AvailabilityStatus{ Available, Booked, NotAvailable }
+
 Device getDeviceType() {
   final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
   return data.size.shortestSide < 600 ? Device.Phone :Device.Tablet;
