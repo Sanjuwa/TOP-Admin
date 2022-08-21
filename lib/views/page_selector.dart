@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:top_admin/views/hospitals.dart';
 import 'package:top_admin/views/nurses.dart';
 
 import '../constants.dart';
@@ -34,11 +35,7 @@ class _PageSelectorState extends State<PageSelector> {
         physics: NeverScrollableScrollPhysics(),
         children: [
           Nurses(),
-          Container(
-            color: Colors.green,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+          Hospitals(),
           Container(
             color: Colors.yellow,
             width: double.infinity,

@@ -1,16 +1,32 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+
 import '../constants.dart';
 import '../widgets/backdrop.dart';
 import '../widgets/heading_card.dart';
 import '../widgets/tile.dart';
 
-class Nurses extends StatelessWidget {
+class Hospitals extends StatelessWidget {
+  const Hospitals({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: getDeviceType() == Device.Tablet?EdgeInsets.only(right: 10.w,bottom: 10.h):EdgeInsets.zero,
+        child: getDeviceType() == Device.Tablet?FloatingActionButton.large(
+          backgroundColor: kGreen,
+          elevation: 7,
+          onPressed: (){},
+          child: Icon(Icons.add,size: 50,),
+        ):FloatingActionButton(
+          backgroundColor: kGreen,
+          elevation: 7,
+          onPressed: (){},
+          child: Icon(Icons.add),
+        ),
+      ),
       body: Backdrop(
         child: Padding(
           padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(horizontal: 40.w, vertical: 30.h):EdgeInsets.all(30.w),
@@ -20,34 +36,14 @@ class Nurses extends StatelessWidget {
 
               Expanded(
                 child: HeadingCard(
-                  title: 'Nurses',
+                  title: 'Hospitals',
                   child: Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: getDeviceType() == Device.Tablet?EdgeInsets.only(top: 35.h, bottom: 20.h):EdgeInsets.only(top: 30.h, bottom: 25.h),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: ToggleSwitch(
-                                initialLabelIndex:0,
-                                activeFgColor: Colors.white,
-                                inactiveBgColor: kDisabledSecondary,
-                                inactiveFgColor: kGreyText,
-                                totalSwitches: specialities.length+1,
-                                labels: ["All", ...specialities].cast(),
-                                fontSize: getDeviceType() == Device.Tablet?18.sp:16.sp,
-                                activeBgColor: [kOrange],
-                                cornerRadius: 5.r,
-                                animate: true,
-                                animationDuration: 200,
-                                minHeight: getDeviceType() == Device.Tablet?40.h:35,
-                                curve: Curves.easeIn,
-                                customWidths: ["All", ...specialities].map((e) => (getDeviceType() == Device.Tablet?e.length * 5+70.w:e.length * 5+70.w)).toList(),
-                                onToggle: (index){},
-                              ),
-                            ),
+                          SizedBox(
+                            height: 20.h,
                           ),
                           Expanded(
                             child: ListView.builder(

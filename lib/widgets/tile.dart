@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
 
-class NurseTile extends StatelessWidget {
+class Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
