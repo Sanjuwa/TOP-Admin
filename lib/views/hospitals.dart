@@ -8,7 +8,6 @@ import '../widgets/heading_card.dart';
 import '../widgets/tile.dart';
 
 class Hospitals extends StatelessWidget {
-  const Hospitals({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

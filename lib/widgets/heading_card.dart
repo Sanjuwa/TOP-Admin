@@ -6,8 +6,10 @@ import '../constants.dart';
 class HeadingCard extends StatelessWidget {
   final String title;
   final Widget child;
+  final EdgeInsetsGeometry ?tabletSize;
+  final EdgeInsetsGeometry ?phoneSize;
 
-  const HeadingCard({required this.title, required this.child});
+  const HeadingCard({required this.title, required this.child, this.tabletSize, this.phoneSize});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class HeadingCard extends StatelessWidget {
                   bottom: Radius.circular(15.r),
                 ),
               ),
-              padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(horizontal: 50.w,vertical: 15.h):EdgeInsets.symmetric(horizontal: 60.w,vertical: 15.h),
+              padding: getDeviceType() == Device.Tablet?tabletSize ?? EdgeInsets.symmetric(horizontal: 50.w,vertical: 15.h):phoneSize ?? EdgeInsets.symmetric(horizontal: 60.w,vertical: 15.h),
               child: Text(
                 title,
                 style: TextStyle(

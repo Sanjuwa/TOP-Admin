@@ -19,13 +19,13 @@ class Button extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           primary: enabled ? color ?? kGreen : kDisabledSecondary,
-          padding: getDeviceType() == Device.Tablet?EdgeInsets.all(padding ?? 15.h):EdgeInsets.all(padding ?? 14.h),
+          padding: getDeviceType() == Device.Tablet?EdgeInsets.all(padding ?? 20.h):EdgeInsets.all(padding ?? 14.h),
       ),
       child: Text(
         text,
         style: TextStyle(
             color: enabled ? textColor ?? Colors.white : kDisabled,
-            fontSize: getDeviceType() == Device.Tablet?fontSize ?? 28.sp:fontSize ?? 24.sp,
+            fontSize: getDeviceType() == Device.Tablet?fontSize ?? 26.sp:fontSize ?? 24.sp,
             fontWeight: FontWeight.w600
         ),
       ),
