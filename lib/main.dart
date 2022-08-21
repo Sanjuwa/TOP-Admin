@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:top_admin/views/log_in.dart';
 import 'package:top_admin/views/nurses.dart';
+import 'package:top_admin/widgets/page_selector.dart';
 
 import 'controllers/user_controler.dart';
 
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: Nurses(),
+          home: PageSelector(),
         ),
       ),
     );

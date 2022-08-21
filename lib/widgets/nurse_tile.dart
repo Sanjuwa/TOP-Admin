@@ -14,7 +14,7 @@ class NurseTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.r),
       ),
       elevation: 3,
-      margin: EdgeInsets.only(bottom: 16.h, left: 8, right: 5),
+      margin: EdgeInsets.only(bottom: 16.h),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -25,7 +25,7 @@ class NurseTile extends StatelessWidget {
                 child: Text(
                   "Alannah Kirkcaldie",
                   style: GoogleFonts.sourceSansPro(
-                    fontSize: getDeviceType() == Device.Tablet?24.sp:20.sp,
+                    fontSize: getDeviceType() == Device.Tablet?23.sp:20.sp,
                     fontWeight: FontWeight.w600,
                     color: kGreyText,
                   ),
