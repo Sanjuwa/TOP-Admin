@@ -1,21 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:top_admin/views/log_in.dart';
-import 'package:top_admin/views/nurse_details.dart';
-import 'package:top_admin/views/nurses.dart';
-import 'package:top_admin/views/page_selector.dart';
+import 'package:top_admin/controllers/user_controller.dart';
+import 'package:top_admin/firebase_options.dart';
+import 'package:top_admin/wrapper.dart';
 
-import 'controllers/user_controler.dart';
+main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: NurseDetails(),
+          home: Wrapper(),
         ),
       ),
     );

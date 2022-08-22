@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.top_admin">
+    package="com.digiwrecks.top_admin">
    <application
         android:label="top_admin"
         android:name="${applicationName}"

@@ -1,4 +1,4 @@
-package com.example.top_admin
+package com.digiwrecks.top_admin
 
 import io.flutter.embedding.android.FlutterActivity
 
