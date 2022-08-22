@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:top_admin/views/hospitals.dart';
 import 'package:top_admin/views/nurses.dart';
-
-import '../constants.dart';
-import 'availability.dart';
+import 'package:top_admin/constants.dart';
 
 class PageSelector extends StatefulWidget {
 
@@ -37,7 +34,11 @@ class _PageSelectorState extends State<PageSelector> {
         children: [
           Nurses(),
           Hospitals(),
-          Availability(),
+          Container(
+            color: Colors.red,
+            width: double.infinity,
+            height: double.infinity,
+          ),
           Container(
             color: Colors.purple,
             width: double.infinity,

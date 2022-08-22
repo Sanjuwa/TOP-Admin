@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 final kGreen = Color(0xff0B8542);
 final kRed = Color(0xffC1272D);
@@ -28,3 +29,13 @@ final specialities = [
   'Porter',
   'None',
 ];
+
+extension FormatDate on DateTime {
+  String toYYYYMMDDFormat() {
+    return DateFormat('yyyy-MM-dd').format(this);
+  }
+
+  String toEEEMMMddFormat() {
+    return DateFormat('EEE MMM dd').format(this);
+  }
+}

@@ -23,4 +23,9 @@ class DatabaseService {
 
     return sub.docs;
   }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllAvailability(String uid) async {
+    var sub = await _firestore.collection('users').doc(uid).collection('shifts').get();
+    return sub.docs;
+  }
 }

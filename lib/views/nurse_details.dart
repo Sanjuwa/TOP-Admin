@@ -1,12 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:top_admin/models/user_model.dart';
-
-import '../constants.dart';
-import '../widgets/backdrop.dart';
-import '../widgets/button.dart';
-import '../widgets/heading_card.dart';
-import '../widgets/input_filed.dart';
+import 'package:top_admin/views/availability.dart';
+import 'package:top_admin/constants.dart';
+import 'package:top_admin/widgets/backdrop.dart';
+import 'package:top_admin/widgets/button.dart';
+import 'package:top_admin/widgets/heading_card.dart';
+import 'package:top_admin/widgets/input_filed.dart';
 
 class NurseDetails extends StatelessWidget {
   final User nurse;
@@ -84,7 +85,12 @@ class NurseDetails extends StatelessWidget {
                 child: Button(
                   text: 'Check Availability',
                   color: kGreen,
-                  onPressed: () async {},
+                  onPressed: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (_) => Availability(user: nurse),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(

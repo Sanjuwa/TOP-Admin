@@ -1,25 +1,23 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/controllers/role_controller.dart';
+import 'package:top_admin/models/shift_model.dart';
+import 'package:top_admin/models/user_model.dart';
+import 'package:top_admin/widgets/availability_tile.dart';
+import 'package:top_admin/widgets/backdrop.dart';
+import 'package:top_admin/widgets/badge.dart';
+import 'package:top_admin/widgets/heading_card.dart';
 
-import '../widgets/availability_tile.dart';
-import '../widgets/backdrop.dart';
-import '../widgets/badge.dart';
-import '../widgets/button.dart';
-import '../widgets/heading_card.dart';
+class Availability extends StatelessWidget {
+  final User user;
 
-class Availability extends StatefulWidget {
+  const Availability({super.key, required this.user});
 
-  @override
-  State<Availability> createState() => _AvailabilityState();
-}
-
-class _AvailabilityState extends State<Availability> {
   @override
   Widget build(BuildContext context) {
+    var roleController = Provider.of<RoleController>(context);
 
     return Scaffold(
       body: Backdrop(
@@ -71,24 +69,47 @@ class _AvailabilityState extends State<Availability> {
                             ],
                           ),
                         ),
+
+                        //data
                         Expanded(
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 15.w),
                             child: RefreshIndicator(
-                              onRefresh: () async => setState(() {}),
-                              child: ListView.builder(
-                                padding: EdgeInsets.zero,
-                                physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics(),
-                                ),
-                                itemCount: 5,
-                                itemBuilder: (context, i) {
+                              onRefresh: () async => roleController.refresh(),
+                              child: FutureBuilder<List<Shift>>(
+                                future: roleController.getAllAvailability(user.uid),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return Center(child: CircularProgressIndicator());
+                                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                    return Stack(
+                                      children: [
+                                        Center(
+                                          child: Text('No data to show!'),
+                                        ),
+                                        ListView(
+                                          physics: AlwaysScrollableScrollPhysics(),
+                                        ),
+                                      ],
+                                    );
+                                  }
 
-                                  return AvailabilityTile(
-                                    dateString: DateFormat('EEE MMM dd').format(DateTime.now()),
-                                    am: AvailabilityStatus.Available,
-                                    pm: AvailabilityStatus.NotAvailable,
-                                    ns: AvailabilityStatus.Booked,
+                                  return ListView.builder(
+                                    physics: BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics(),
+                                    ),
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, i) {
+
+                                      Shift shift = snapshot.data![i];
+
+                                      return AvailabilityTile(
+                                        dateString: shift.dateAsDateTime.toEEEMMMddFormat(),
+                                        am: shift.am,
+                                        pm: shift.pm,
+                                        ns: shift.ns,
+                                      );
+                                    },
                                   );
                                 },
                               ),
