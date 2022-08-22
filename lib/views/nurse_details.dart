@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:top_admin/models/user_model.dart';
 
 import '../constants.dart';
 import '../widgets/backdrop.dart';
@@ -8,9 +9,22 @@ import '../widgets/heading_card.dart';
 import '../widgets/input_filed.dart';
 
 class NurseDetails extends StatelessWidget {
+  final User nurse;
+
+  NurseDetails({super.key, required this.nurse});
+
+  final TextEditingController name = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController speciality = TextEditingController();
+  final TextEditingController phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    name.text = nurse.name!;
+    email.text = nurse.email!;
+    speciality.text = nurse.specialities!.join(', ');
+    phone.text = nurse.phone!;
+
     return Scaffold(
       body: Backdrop(
         child: Padding(
@@ -30,8 +44,17 @@ class NurseDetails extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: getDeviceType() == Device.Tablet?10.h:10.w),
                         child: InputField(
+                          text: 'Name',
+                          enabled: false,
+                          controller: name,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: getDeviceType() == Device.Tablet?10.h:10.w),
+                        child: InputField(
                           text: 'Email',
                           enabled: false,
+                          controller: email,
                         ),
                       ),
                       Padding(
@@ -40,6 +63,7 @@ class NurseDetails extends StatelessWidget {
                           text: 'Speciality',
                           enabled: false,
                           multiLine: true,
+                          controller: speciality,
                         ),
                       ),
                       Padding(
@@ -47,6 +71,7 @@ class NurseDetails extends StatelessWidget {
                         child: InputField(
                           text: 'Mobile Number',
                           enabled: false,
+                          controller: phone,
                         ),
                       ),
                     ],

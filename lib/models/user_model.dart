@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:top_admin/constants.dart';
 
 class User {
@@ -11,4 +12,21 @@ class User {
   String? phone;
 
   User(this.uid, this.email);
+  
+  static User fromDocument(QueryDocumentSnapshot doc){
+    User user = User(doc.id, doc['email']);
+    user.name = doc['name'];
+    user.isApproved = doc['isApproved'];
+    user.role = Role.values.byName(doc['role']);
+    user.specialities = doc['specialities'];
+
+    if(user.role == Role.Nurse){
+      user.phone = doc['phone'];
+    } else {
+      user.hospital = doc['hospital'];
+    }
+
+    return user;
+  }
+  
 }

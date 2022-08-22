@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/controllers/user_controller.dart';
 import 'package:top_admin/firebase_options.dart';
 import 'package:top_admin/wrapper.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MultiProvider(
         providers: [
           Provider<UserController>(create: (_) => UserController()),
-          // ChangeNotifierProvider<AvailabilityController>(create: (_) => AvailabilityController()),
+          ChangeNotifierProvider<RoleController>(create: (_) => RoleController()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

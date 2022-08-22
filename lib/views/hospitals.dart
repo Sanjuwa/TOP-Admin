@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:top_admin/models/user_model.dart';
 
 import '../constants.dart';
 import '../widgets/backdrop.dart';
@@ -49,7 +50,7 @@ class Hospitals extends StatelessWidget {
                               padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(vertical: 10.h):EdgeInsets.symmetric(vertical: 0),
                               physics: BouncingScrollPhysics(),
                               itemCount: 20,
-                              itemBuilder: (context, i) => Tile(),
+                              itemBuilder: (context, i) => Tile(name: 'bdf'),
                             ),
                           ),
                         ],
