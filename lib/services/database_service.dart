@@ -9,13 +9,13 @@ class DatabaseService {
     return doc.exists;
   }
 
-  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllNurses(String speciality) async {
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getNurses(String speciality) async {
     var query = _firestore
         .collection('users')
         .where('role', isEqualTo: Role.Nurse.name)
         .where('isApproved', isEqualTo: true);
 
-    if(speciality != 'All'){
+    if (speciality != 'All') {
       query = query.where('specialities', arrayContains: speciality);
     }
 
@@ -26,6 +26,11 @@ class DatabaseService {
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllAvailability(String uid) async {
     var sub = await _firestore.collection('users').doc(uid).collection('shifts').get();
+    return sub.docs;
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllHospitals() async {
+    var sub = await _firestore.collection('hospitals').orderBy('name').get();
     return sub.docs;
   }
 }

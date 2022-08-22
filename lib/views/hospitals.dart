@@ -1,17 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-import 'package:top_admin/models/user_model.dart';
-
-import '../constants.dart';
-import '../widgets/backdrop.dart';
-import '../widgets/heading_card.dart';
-import '../widgets/tile.dart';
+import 'package:provider/provider.dart';
+import 'package:top_admin/controllers/role_controller.dart';
+import 'package:top_admin/models/hospital_model.dart';
+import 'package:top_admin/constants.dart';
+import 'package:top_admin/widgets/backdrop.dart';
+import 'package:top_admin/widgets/heading_card.dart';
+import 'package:top_admin/widgets/tile.dart';
 
 class Hospitals extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
+    var roleController = Provider.of<RoleController>(context);
+
     return Scaffold(
       floatingActionButton: Padding(
         padding: getDeviceType() == Device.Tablet?EdgeInsets.only(right: 10.w,bottom: 10.h):EdgeInsets.zero,
@@ -46,11 +48,53 @@ class Hospitals extends StatelessWidget {
                             height: 20.h,
                           ),
                           Expanded(
-                            child: ListView.builder(
-                              padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(vertical: 10.h):EdgeInsets.symmetric(vertical: 0),
-                              physics: BouncingScrollPhysics(),
-                              itemCount: 20,
-                              itemBuilder: (context, i) => Tile(name: 'bdf'),
+                            child: RefreshIndicator(
+                              onRefresh: () async => roleController.refresh(),
+                              child:
+                              FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
+                                future: roleController.getAllHospitals(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                    return Stack(
+                                      children: [
+                                        Center(
+                                          child: Text('No data to show!'),
+                                        ),
+                                        ListView(
+                                          physics: AlwaysScrollableScrollPhysics(),
+                                        ),
+                                      ],
+                                    );
+                                  }
+
+                                  return ListView.builder(
+                                    padding: getDeviceType() == Device.Tablet
+                                        ? EdgeInsets.symmetric(vertical: 10.h)
+                                        : EdgeInsets.symmetric(vertical: 0),
+                                    physics: BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics(),
+                                    ),
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, i) {
+                                      Hospital hospital = Hospital(snapshot.data![i].id, snapshot.data![i]['name']);
+
+                                      return Tile(
+                                        // onTap: () => Navigator.push(
+                                        //   context,
+                                        //   CupertinoPageRoute(
+                                        //     builder: (_) => NurseDetails(nurse: nurse),
+                                        //   ),
+                                        // ),
+                                        name: hospital.name,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],

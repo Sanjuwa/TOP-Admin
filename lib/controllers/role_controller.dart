@@ -17,7 +17,7 @@ class RoleController extends ChangeNotifier {
   }
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllNurses() async {
-    return _databaseService.getAllNurses(_selectedSpeciality);
+    return _databaseService.getNurses(_selectedSpeciality);
   }
 
   Future<List<Shift>> getAllAvailability(String uid) async {
@@ -55,6 +55,10 @@ class RoleController extends ChangeNotifier {
     } catch (e) {
       return [];
     }
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllHospitals() async {
+    return _databaseService.getAllHospitals();
   }
 
   refresh() => notifyListeners();
