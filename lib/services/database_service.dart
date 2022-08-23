@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/models/job_model.dart';
 
 class DatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -41,6 +42,23 @@ class DatabaseService {
 
     await _firestore.collection('hospitals').doc(ref.id).update({
       'id': ref.id,
+    });
+  }
+
+  createJob(Job job) async {
+    await _firestore.collection('jobs').add({
+      'hospitalName': job.hospital,
+      'hospitalID': job.hospitalID,
+      'managerName': job.managerName,
+      'managerID': job.managerID,
+      'speciality': job.speciality,
+      'shiftDate': job.shiftDate,
+      'shiftStartTime': job.shiftStartTime,
+      'shiftEndTime': job.shiftEndTime,
+      'shiftType': job.shiftType,
+      'additionalDetails': job.additionalDetails,
+      'status': JobStatus.Available.name,
+      'nurse': null,
     });
   }
 }

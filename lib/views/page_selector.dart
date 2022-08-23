@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:top_admin/views/create_job.dart';
 import 'package:top_admin/views/hospitals.dart';
 import 'package:top_admin/views/nurses.dart';
 import 'package:top_admin/constants.dart';
@@ -34,11 +35,7 @@ class _PageSelectorState extends State<PageSelector> {
         children: [
           Nurses(),
           Hospitals(),
-          Container(
-            color: Colors.red,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+          CreateJob(),
           Container(
             color: Colors.purple,
             width: double.infinity,

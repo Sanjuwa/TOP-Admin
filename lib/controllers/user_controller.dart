@@ -16,6 +16,15 @@ class UserController{
     return await _databaseService.isAdmin(user.uid);
   }
 
+  Future<String?> getUserID() async {
+    User? user = await _authService.currentUser;
+    if (user == null) {
+      return null;
+    }
+
+    return user.uid;
+  }
+
   Future<bool> signOut() async => await _authService.signOut();
 
   Future<bool> signIn(String email, String password) async {

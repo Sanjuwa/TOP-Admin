@@ -14,6 +14,8 @@ enum AvailabilityStatus{ Available, Booked, NotAvailable }
 
 enum Role { Nurse, Manager }
 
+enum JobStatus { Confirmed, Available, Completed }
+
 Device getDeviceType() {
   final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
   return data.size.shortestSide < 600 ? Device.Phone :Device.Tablet;
@@ -37,5 +39,13 @@ extension FormatDate on DateTime {
 
   String toEEEMMMddFormat() {
     return DateFormat('EEE MMM dd').format(this);
+  }
+}
+
+extension TimeOfDayConverter on TimeOfDay {
+  String to24hours() {
+    final hour = this.hour.toString().padLeft(2, "0");
+    final min = minute.toString().padLeft(2, "0");
+    return "$hour:$min";
   }
 }
