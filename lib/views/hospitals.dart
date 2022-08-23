@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/views/create_hospital.dart';
 import 'package:top_admin/widgets/backdrop.dart';
 import 'package:top_admin/widgets/heading_card.dart';
 import 'package:top_admin/widgets/tile.dart';
@@ -20,12 +21,12 @@ class Hospitals extends StatelessWidget {
         child: getDeviceType() == Device.Tablet?FloatingActionButton.large(
           backgroundColor: kGreen,
           elevation: 7,
-          onPressed: (){},
+          onPressed: () => showDialog(context: context, builder: (_) => CreateHospital()),
           child: Icon(Icons.add,size: 50,),
         ):FloatingActionButton(
           backgroundColor: kGreen,
           elevation: 7,
-          onPressed: (){},
+          onPressed: () => showDialog(context: context, builder: (_) => CreateHospital()),
           child: Icon(Icons.add),
         ),
       ),

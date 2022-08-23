@@ -33,4 +33,14 @@ class DatabaseService {
     var sub = await _firestore.collection('hospitals').orderBy('name').get();
     return sub.docs;
   }
+
+  addHospital(String name) async {
+    var ref = await _firestore.collection('hospitals').add({
+      'name': name,
+    });
+
+    await _firestore.collection('hospitals').doc(ref.id).update({
+      'id': ref.id,
+    });
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:top_admin/constants.dart';
 import 'package:top_admin/models/shift_model.dart';
 import 'package:top_admin/services/database_service.dart';
+import 'package:top_admin/widgets/toast.dart';
 
 class RoleController extends ChangeNotifier {
   final DatabaseService _databaseService = DatabaseService();
@@ -61,7 +62,18 @@ class RoleController extends ChangeNotifier {
     return _databaseService.getAllHospitals();
   }
 
-  refresh() => notifyListeners();
+  Future<bool> addHospital(String name) async {
+    try{
+      await _databaseService.addHospital(name);
+      ToastBar(text: "Hospital added", color: Colors.green).show();
+      return true;
+    } catch(e){
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
+  }
+
+  void refresh() => notifyListeners();
 
   List<String> _getDaysInBetween(DateTime startDate, DateTime endDate) {
     List<String> days = [];
