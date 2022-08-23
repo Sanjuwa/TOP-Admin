@@ -105,7 +105,7 @@ class NurseDetails extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (_) => CreateJob(assignShift: true),
+                      builder: (_) => CreateJob(assignShift: true, nurse: nurse),
                     ),
                   ),
                 ),

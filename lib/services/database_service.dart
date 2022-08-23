@@ -61,4 +61,36 @@ class DatabaseService {
       'nurse': null,
     });
   }
+
+  assignJobToNurse(Job job, String nurseID, String shiftID, String shiftType) async {
+    await _firestore.collection('jobs').add({
+      'hospitalName': job.hospital,
+      'hospitalID': job.hospitalID,
+      'managerName': job.managerName,
+      'managerID': job.managerID,
+      'speciality': job.speciality,
+      'shiftDate': job.shiftDate,
+      'shiftStartTime': job.shiftStartTime,
+      'shiftEndTime': job.shiftEndTime,
+      'shiftType': job.shiftType,
+      'additionalDetails': job.additionalDetails,
+      'status': JobStatus.Confirmed.name,
+      'nurse': nurseID,
+    });
+
+    await _firestore.collection('users').doc(nurseID).collection('shifts').doc(shiftID).update({
+      shiftType: AvailabilityStatus.Booked.name,
+    });
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getSingleAvailability(
+      String uid, String date) async {
+    var sub = await _firestore
+        .collection('users')
+        .doc(uid)
+        .collection('shifts')
+        .where('date', isEqualTo: date)
+        .get();
+    return sub.docs;
+  }
 }

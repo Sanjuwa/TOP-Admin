@@ -73,6 +73,15 @@ class RoleController extends ChangeNotifier {
     }
   }
 
+  Future<bool> isNurseAvailable(String uid, String date, String shiftType) async {
+    List shift = await _databaseService.getSingleAvailability(uid, date);
+    if (shift.isEmpty) {
+      return false;
+    } else {
+      return shift[0][shiftType] == AvailabilityStatus.Available.name;
+    }
+  }
+
   void refresh() => notifyListeners();
 
   List<String> _getDaysInBetween(DateTime startDate, DateTime endDate) {

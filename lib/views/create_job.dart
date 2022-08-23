@@ -8,6 +8,7 @@ import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/controllers/user_controller.dart';
 import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/models/job_model.dart';
+import 'package:top_admin/models/user_model.dart';
 import 'package:top_admin/widgets/backdrop.dart';
 import 'package:top_admin/widgets/button.dart';
 import 'package:top_admin/widgets/heading_card.dart';
@@ -16,8 +17,9 @@ import 'package:top_admin/widgets/toast.dart';
 
 class CreateJob extends StatefulWidget {
   final bool assignShift;
+  final User? nurse;
 
-  const CreateJob({super.key, this.assignShift = false});
+  const CreateJob({super.key, this.assignShift = false, this.nurse});
 
   @override
   State<CreateJob> createState() => _CreateJobState();
@@ -38,7 +40,7 @@ class _CreateJobState extends State<CreateJob> {
 
   getHospitals() async {
     List fetchedHospitalData =
-        await Provider.of<RoleController>(context, listen: false).getAllHospitals();
+    await Provider.of<RoleController>(context, listen: false).getAllHospitals();
     allHospitals = fetchedHospitalData.map((e) => Hospital(e.id, e['name'])).toList();
     setState(() {});
   }
@@ -51,6 +53,11 @@ class _CreateJobState extends State<CreateJob> {
 
   @override
   Widget build(BuildContext context) {
+    var jobController = Provider.of<JobController>(context);
+    var roleController = Provider.of<RoleController>(context);
+    var userController = Provider.of<UserController>(context);
+    List? dropDownSpecialities = widget.assignShift ? widget.nurse!.specialities : specialities;
+
     return Scaffold(
       body: Backdrop(
         child: SingleChildScrollView(
@@ -98,7 +105,7 @@ class _CreateJobState extends State<CreateJob> {
                               value: selectedHospital,
                               items: allHospitals
                                   .map((hospital) =>
-                                      DropdownMenuItem(value: hospital, child: Text(hospital.name)))
+                                  DropdownMenuItem(value: hospital, child: Text(hospital.name)))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() => selectedHospital = value);
@@ -123,9 +130,9 @@ class _CreateJobState extends State<CreateJob> {
                                 style: TextStyle(color: kDisabled),
                               ),
                               value: selectedSpeciality,
-                              items: specialities
+                              items: dropDownSpecialities!
                                   .map((speciality) =>
-                                      DropdownMenuItem(value: speciality, child: Text(speciality)))
+                                  DropdownMenuItem(value: speciality, child: Text(speciality)))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() => selectedSpeciality = value as String);
@@ -248,7 +255,7 @@ class _CreateJobState extends State<CreateJob> {
                       } else {
                         ToastBar(text: "Please wait...", color: Colors.orange).show();
 
-                        String? adminID = await Provider.of<UserController>(context,listen: false).getUserID();
+                        String? adminID = await userController.getUserID();
                         if (adminID != null) {
                           Job job = Job(
                               managerName: "Admin",
@@ -264,17 +271,42 @@ class _CreateJobState extends State<CreateJob> {
                               id: ''
                           );
 
-                          bool isSuccess = await Provider.of<JobController>(context, listen: false).createJob(job);
-                          if (isSuccess) {
-                            selectedHospital = null;
-                            selectedSpeciality = null;
-                            shiftDate.clear();
-                            shiftStartTime.clear();
-                            shiftEndTime.clear();
-                            selectedShiftType = null;
-                            additionalDetails.clear();
-                            setState((){});
+                          ///post new job
+                          if (!widget.assignShift) {
+                            bool isSuccess = await jobController.createJob(job);
+                            if (isSuccess) {
+                              selectedHospital = null;
+                              selectedSpeciality = null;
+                              shiftDate.clear();
+                              shiftStartTime.clear();
+                              shiftEndTime.clear();
+                              selectedShiftType = null;
+                              additionalDetails.clear();
+                              setState(() {});
+                            }
                           }
+
+                          ///assign job to nurse
+                          else {
+                            bool isAvailable = await roleController.isNurseAvailable(
+                              widget.nurse!.uid,
+                              job.shiftDate.toYYYYMMDDFormat(),
+                              job.shiftType,
+                            );
+
+                            if (isAvailable) {
+                              bool isSuccess = await jobController.assignJobToNurse(
+                                  job, widget.nurse!.uid);
+                              if (isSuccess) {
+                                Navigator.pop(context);
+                              }
+                            } else {
+                              ToastBar(text: 'Nurse is not available in the selected shift!',
+                                  color: Colors.red).show();
+                            }
+                          }
+
+
                         } else {
                           ToastBar(text: 'Authentication Error!', color: Colors.red).show();
                         }
