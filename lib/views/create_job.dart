@@ -83,11 +83,11 @@ class _CreateJobState extends State<CreateJob> {
                 HeadingCard(
                   title: widget.assignShift ? 'Custom Shift' : 'Post a Job',
                   child: Padding(
-                    padding: EdgeInsets.all(15.w),
+                    padding: getDeviceType() == Device.Tablet?EdgeInsets.fromLTRB(15.w,35.h,15.w,20.h):EdgeInsets.fromLTRB(15.w,30.h,15.w,25.h),
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: getDeviceType() == Device.Tablet?20.h:15.h),
+                          padding: EdgeInsets.only(bottom: getDeviceType() == Device.Tablet?10.h:8.h),
                           child: Container(
                             alignment: getDeviceType() == Device.Tablet?Alignment.center:null,
                             height: getDeviceType() == Device.Tablet?100:null,
