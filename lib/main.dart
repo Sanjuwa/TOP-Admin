@@ -7,6 +7,7 @@ import 'package:top_admin/controllers/job_controller.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/controllers/user_controller.dart';
 import 'package:top_admin/firebase_options.dart';
+import 'package:top_admin/views/page_selector.dart';
 import 'package:top_admin/wrapper.dart';
 
 main() async {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: Wrapper(),
+          home: PageSelector(),
         ),
       ),
     );
