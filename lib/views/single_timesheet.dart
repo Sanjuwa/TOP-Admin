@@ -21,6 +21,10 @@ class SingleTimesheet extends StatelessWidget {
           padding: EdgeInsets.all(30.w),
           child: Column(
             children: [
+              SizedBox(
+                height: ScreenUtil().statusBarHeight,
+              ),
+
               Expanded(
                 child: HeadingCard(
                   title: 'Time Sheet',

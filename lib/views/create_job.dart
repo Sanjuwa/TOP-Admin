@@ -108,7 +108,7 @@ class _CreateJobState extends State<CreateJob> {
                               value: selectedHospital,
                               items: allHospitals
                                   .map((hospital) =>
-                                  DropdownMenuItem(value: hospital, child: Text(hospital.name)))
+                                  DropdownMenuItem(value: hospital, child: Text(hospital.name, style: TextStyle(fontSize: getDeviceType() == Device.Tablet?20.sp:null),)))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() => selectedHospital = value);
@@ -138,7 +138,7 @@ class _CreateJobState extends State<CreateJob> {
                               value: selectedSpeciality,
                               items: dropDownSpecialities!
                                   .map((speciality) =>
-                                  DropdownMenuItem(value: speciality, child: Text(speciality)))
+                                  DropdownMenuItem(value: speciality, child: Text(speciality, style: TextStyle(fontSize: getDeviceType() == Device.Tablet?20.sp:null),)))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() => selectedSpeciality = value as String);
@@ -224,9 +224,9 @@ class _CreateJobState extends State<CreateJob> {
                               ),
                               value: selectedShiftType,
                               items: [
-                                DropdownMenuItem(value: 'AM', child: Text('AM')),
-                                DropdownMenuItem(value: 'PM', child: Text('PM')),
-                                DropdownMenuItem(value: 'NS', child: Text('NS')),
+                                DropdownMenuItem(value: 'AM', child: Text('AM', style: TextStyle(fontSize: getDeviceType() == Device.Tablet?20.sp:null),)),
+                                DropdownMenuItem(value: 'PM', child: Text('PM', style: TextStyle(fontSize: getDeviceType() == Device.Tablet?20.sp:null),)),
+                                DropdownMenuItem(value: 'NS', child: Text('NS', style: TextStyle(fontSize: getDeviceType() == Device.Tablet?20.sp:null),)),
                               ],
                               onChanged: (value) {
                                 setState(() => selectedShiftType = value);

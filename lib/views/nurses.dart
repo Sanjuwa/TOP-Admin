@@ -80,7 +80,7 @@ class Nurses extends StatelessWidget {
                                     return Stack(
                                       children: [
                                         Center(
-                                          child: Text('No data to show!'),
+                                          child: Text('No data to show!', style: TextStyle(fontSize: getDeviceType() == Device.Tablet ? 20.sp : null),),
                                         ),
                                         ListView(
                                           physics: AlwaysScrollableScrollPhysics(),
