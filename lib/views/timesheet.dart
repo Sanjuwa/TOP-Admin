@@ -47,7 +47,7 @@ class TimeSheet extends StatelessWidget {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.all(10.h),
-                                    child: Icon(Icons.calendar_today,color: Colors.white,size: 16,),
+                                    child: Icon(Icons.calendar_today,color: Colors.white,size: getDeviceType() == Device.Tablet?30:16),
                                   ),
                                 ),
                                 SizedBox(
@@ -56,7 +56,7 @@ class TimeSheet extends StatelessWidget {
                                 Text(
                                   "02 Aug 2022",
                                   style: GoogleFonts.outfit(
-                                      fontSize: getDeviceType() == Device.Tablet?21.sp:14.sp, fontWeight: FontWeight.w400, color: Colors.black),
+                                      fontSize: getDeviceType() == Device.Tablet?19.sp:14.sp, fontWeight: FontWeight.w400, color: Colors.black),
                                 ),
                                 SizedBox(
                                   width: 15.w,
@@ -66,7 +66,7 @@ class TimeSheet extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 25.h),
+                          padding: EdgeInsets.only(top: getDeviceType() == Device.Tablet?30.h:25.h),
                           child: Material(
                             elevation: 5,
                             borderRadius: BorderRadius.circular(10.r),
@@ -84,10 +84,11 @@ class TimeSheet extends StatelessWidget {
                                           right: Radius.circular(10.r)),
                                     ),
                                     child: SizedBox(
+                                      width: getDeviceType() == Device.Tablet?20.w:null,
                                       child: Icon(
                                         Icons.arrow_forward_ios,
                                         color: Colors.white,
-                                        size: 20,
+                                        size: getDeviceType() == Device.Tablet?35:20,
                                       ),
                                     ),
                                   )
