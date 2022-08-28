@@ -5,6 +5,7 @@ import 'package:top_admin/views/create_job.dart';
 import 'package:top_admin/views/hospitals.dart';
 import 'package:top_admin/views/nurses.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/views/timesheet.dart';
 
 class PageSelector extends StatefulWidget {
 
@@ -38,11 +39,7 @@ class _PageSelectorState extends State<PageSelector> {
           Hospitals(),
           CreateJob(),
           Approval(),
-          Container(
-            color: Colors.blue,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+          TimeSheet(),
         ],
       ),
 
