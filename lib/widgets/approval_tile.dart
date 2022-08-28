@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:top_admin/widgets/custom_icon_btn.dart';
 
 import '../constants.dart';
 import 'button.dart';
@@ -48,21 +49,24 @@ class ApprovalTile extends StatelessWidget {
               children: [
                 //Name
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 80.w,
+                      width:90.w,
                       child: Text(
                         'Name',
                         style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp,
+                          fontSize: getDeviceType() == Device.Tablet?21.sp:18.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Text(
-                      name,
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                    Expanded(
+                      child:Text(
+                        name,
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                      ),
                     ),
                   ],
                 ),
@@ -70,21 +74,24 @@ class ApprovalTile extends StatelessWidget {
 
                 //Hospital
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 80.w,
+                      width:90.w,
                       child: Text(
                         'Hospital',
                         style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp,
+                          fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Text(
-                      hospital,
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                    Expanded(
+                      child: Text(
+                        hospital,
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                      ),
                     ),
                   ],
                 ),
@@ -92,21 +99,24 @@ class ApprovalTile extends StatelessWidget {
 
                 //Speciality
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 80.w,
+                      width:90.w,
                       child: Text(
                         'Speciality',
                         style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp,
+                          fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Text(
-                      speciality,
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                    Expanded(
+                      child:Text(
+                        speciality,
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                      ),
                     ),
                   ],
                 ),
@@ -114,21 +124,24 @@ class ApprovalTile extends StatelessWidget {
 
                 //Email
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 80.w,
+                      width:90.w,
                       child: Text(
                         'Email',
                         style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp,
+                          fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Text(
-                      email,
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:15.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                    Expanded(
+                      child:Text(
+                        email,
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                      ),
                     ),
                   ],
                 ),
@@ -140,35 +153,13 @@ class ApprovalTile extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
-                            color: Color(0xff4CAF50),
-                          ),
-                          child: IconButton(
-                              color: Colors.white,
-                              iconSize: getDeviceType() == Device.Tablet?30.sp:10.sp,
-                              onPressed: (){},
-                              icon: Icon(Icons.check_circle_outline),
-                          ),
-                        )
+                        child: CustomIconBtn(icon: Icons.check_circle_outline, color: Color(0xff4CAF50)),
                       ),
                       SizedBox(
-                        width: getDeviceType() == Device.Tablet?20.w:10.w,
+                        width: getDeviceType() == Device.Tablet?20.w:15.w,
                       ),
                       Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.r),
-                              color: kRed,
-                            ),
-                            child: IconButton(
-                                color: Colors.white,
-                                iconSize: getDeviceType() == Device.Tablet?30.sp:10.sp,
-                                onPressed: (){},
-                                icon: Icon(Icons.cancel_outlined),
-                            ),
-                          )
+                          child: CustomIconBtn(icon: Icons.cancel_outlined, color: kRed,),
                       )
                     ],
                   ),
