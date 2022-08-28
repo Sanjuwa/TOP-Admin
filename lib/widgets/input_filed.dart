@@ -48,7 +48,7 @@ class _InputFieldState extends State<InputField> {
         fontSize: 20.sp,
       ):null,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 10.w),
+        contentPadding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(vertical: 25.h, horizontal: 10.w):null,
         labelText: widget.text,
         isDense: true,
         filled: true,

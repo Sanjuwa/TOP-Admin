@@ -75,7 +75,7 @@ class TimeSheet extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Expanded(
-                                    child: ShiftTile(hospital: "hospital", nurse: "nurse", shiftDate: "shiftDate", shiftTime: "shiftTime"),
+                                    child: ShiftTile(hospital: "hospital", nurse: "nurse", shiftDate: "shiftDate", shiftTime: "shiftTime", showBackStrip: true),
                                   ),
                                   Container(
                                     decoration: BoxDecoration(

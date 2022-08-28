@@ -11,10 +11,12 @@ class ShiftTile extends StatelessWidget {
   final String nurse;
   final String shiftDate;
   final String shiftTime;
+  final bool showFrontStrip;
+  final bool showBackStrip;
 
   final TextEditingController additionalDetailsController = TextEditingController();
 
-  ShiftTile({super.key, required this.hospital, required this.nurse, required this.shiftDate, required this.shiftTime});
+  ShiftTile({super.key, required this.hospital, required this.nurse, required this.shiftDate, required this.shiftTime, this.showFrontStrip = false, this.showBackStrip = false});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +24,16 @@ class ShiftTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        color: Colors.transparent,
+        color: showFrontStrip ? kRed : Colors.transparent,
       ),
       child: Container(
-        margin: EdgeInsets.zero,
+        margin: showFrontStrip ? EdgeInsets.only(left: 12.w) : EdgeInsets.zero,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.horizontal(left: Radius.circular(10.r)),
+          borderRadius: showFrontStrip
+              ? BorderRadius.horizontal(right: Radius.circular(10.r))
+              : showBackStrip
+              ? BorderRadius.horizontal(left: Radius.circular(10.r))
+              : BorderRadius.circular(10.r),
           color: Colors.white,
         ),
         child: Padding(
