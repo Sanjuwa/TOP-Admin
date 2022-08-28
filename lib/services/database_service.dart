@@ -25,6 +25,11 @@ class DatabaseService {
     return sub.docs;
   }
 
+  Future<Map<String, dynamic>?> getSingleNurse(String id) async {
+    var sub = await _firestore.collection('users').doc(id).get();
+    return sub.data();
+  }
+
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllAvailability(String uid) async {
     var sub = await _firestore.collection('users').doc(uid).collection('shifts').get();
     return sub.docs;
@@ -121,5 +126,17 @@ class DatabaseService {
     await _firestore.collection('users').doc(id).update({
       'isDeclined': true,
     });
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getTimeSheets(String? date) async {
+    var sub = await _firestore
+        .collection('timesheets').where('date', isEqualTo: date).get();
+
+    return sub.docs;
+  }
+
+  Future<Map<String, dynamic>?> getSingleJob(String id) async {
+    var sub = await _firestore.collection('jobs').doc(id).get();
+    return sub.data();
   }
 }

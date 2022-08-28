@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:top_admin/constants.dart';
 import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/models/shift_model.dart';
+import 'package:top_admin/models/user_model.dart';
 import 'package:top_admin/services/database_service.dart';
 import 'package:top_admin/widgets/toast.dart';
 
@@ -27,6 +28,16 @@ class RoleController extends ChangeNotifier {
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllNurses() async {
     return _databaseService.getNurses(_selectedSpeciality);
+  }
+
+  Future<User?> getSingleNurse(String id) async {
+    Map<String, dynamic>? data = await _databaseService.getSingleNurse(id);
+    if(data == null || data.isEmpty){
+      return null;
+    }
+    User user = User(id, data['email']);
+    user.name = data['name'];
+    return user;
   }
 
   Future<List<Shift>> getAllAvailability(String uid) async {

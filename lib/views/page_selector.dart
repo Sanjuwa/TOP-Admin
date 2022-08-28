@@ -6,7 +6,7 @@ import 'package:top_admin/views/hospitals.dart';
 import 'package:top_admin/views/nurses.dart';
 import 'package:top_admin/constants.dart';
 import 'package:top_admin/views/single_timesheet.dart';
-import 'package:top_admin/views/timesheet.dart';
+import 'package:top_admin/views/timesheets.dart';
 
 class PageSelector extends StatefulWidget {
 

@@ -12,6 +12,7 @@ class Job {
   final String hospitalID;
   final String managerName;
   final String managerID;
+  final String? nurseID;
 
   Job({
     required this.id,
@@ -25,6 +26,7 @@ class Job {
     required this.additionalDetails,
     required this.managerName,
     required this.managerID,
+    this.nurseID,
   });
 
   static Job createJobFromDocument(QueryDocumentSnapshot doc) {
@@ -40,6 +42,24 @@ class Job {
       shiftEndTime: doc['shiftEndTime'],
       shiftType: doc['shiftType'],
       additionalDetails: doc['additionalDetails'],
+      nurseID: doc['nurse'],
+    );
+  }
+
+  static Job createJobFromMap(Map<String, dynamic> doc, String id) {
+    return Job(
+      id: id,
+      hospital: doc['hospitalName'],
+      hospitalID: doc['hospitalID'],
+      managerName: doc['managerName'],
+      managerID: doc['managerID'],
+      speciality: doc['speciality'],
+      shiftDate: doc['shiftDate'].toDate(),
+      shiftStartTime: doc['shiftStartTime'],
+      shiftEndTime: doc['shiftEndTime'],
+      shiftType: doc['shiftType'],
+      additionalDetails: doc['additionalDetails'],
+      nurseID: doc['nurse'],
     );
   }
 }

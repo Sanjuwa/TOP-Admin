@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MultiProvider(
         providers: [
           Provider<UserController>(create: (_) => UserController()),
-          Provider<JobController>(create: (_) => JobController()),
+          ChangeNotifierProvider<JobController>(create: (_) => JobController()),
           ChangeNotifierProvider<RoleController>(create: (_) => RoleController()),
         ],
         child: MaterialApp(
