@@ -8,7 +8,7 @@ import '../constants.dart';
 import '../widgets/backdrop.dart';
 import '../widgets/heading_card.dart';
 
-class TimeSheet extends StatelessWidget {
+class TimeSheets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

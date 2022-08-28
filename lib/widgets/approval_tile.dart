@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:top_admin/controllers/role_controller.dart';
+import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/widgets/custom_icon_btn.dart';
 
 import '../constants.dart';
@@ -8,27 +11,32 @@ import 'button.dart';
 
 class ApprovalTile extends StatelessWidget {
   final String name;
-  final String hospital;
+  final String? hospitalID;
   final String speciality;
   final String email;
-  final bool showAcceptButton;
+  final String? phone;
+  final bool showHospital;
+  final bool showPhone;
   final Function? onAcceptButtonPressed;
+  final Function? onDeclineButtonPressed;
 
   ApprovalTile({
     super.key,
-    this.showAcceptButton = false,
     required this.name,
     required this.email,
     this.onAcceptButtonPressed,
-    required this.hospital,
+    this.hospitalID,
     required this.speciality,
+    this.showHospital = false,
+    this.phone,
+    required this.showPhone,
+    this.onDeclineButtonPressed,
   });
 
   final TextEditingController additionalDetailsController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(10.r),
@@ -52,117 +60,174 @@ class ApprovalTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width:90.w,
+                      width: 90.w,
                       child: Text(
                         'Name',
                         style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:18.sp,
+                          fontSize: getDeviceType() == Device.Tablet ? 21.sp : 18.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Expanded(
-                      child:Text(
+                      child: Text(
                         name,
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                            fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                            fontWeight: FontWeight.w400,
+                            color: kGreyText),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: getDeviceType() == Device.Tablet?10.h:8.h),
+                SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
                 //Hospital
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width:90.w,
-                      child: Text(
-                        'Hospital',
-                        style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp,
-                          fontWeight: FontWeight.w500,
+                if (showHospital)
+                  FutureBuilder<Hospital?>(
+                    future: Provider.of<RoleController>(context).getSingleHospital(hospitalID!),
+                    builder: (context, snapshot) {
+                      String name = "Loading";
+                      if (snapshot.connectionState == ConnectionState.waiting ||
+                          !snapshot.hasData) {
+                        name = "Loading";
+                      } else {
+                        name = snapshot.data!.name;
+                      }
+
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 90.w,
+                            child: Text(
+                              'Hospital',
+                              style: TextStyle(
+                                fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              name,
+                              style: GoogleFonts.sourceSansPro(
+                                  fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: kGreyText),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                if (showHospital) SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
+
+                //Phone
+                if (showPhone)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 90.w,
+                        child: Text(
+                          'Phone',
+                          style: TextStyle(
+                            fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        hospital,
-                        style: GoogleFonts.sourceSansPro(
-                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                      Expanded(
+                        child: Text(
+                          phone!,
+                          style: GoogleFonts.sourceSansPro(
+                              fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                              fontWeight: FontWeight.w400,
+                              color: kGreyText),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: getDeviceType() == Device.Tablet?10.h:8.h),
+                    ],
+                  ),
+                if (showPhone) SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
                 //Speciality
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width:90.w,
+                      width: 90.w,
                       child: Text(
                         'Speciality',
                         style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp,
+                          fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Expanded(
-                      child:Text(
+                      child: Text(
                         speciality,
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                            fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                            fontWeight: FontWeight.w400,
+                            color: kGreyText),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: getDeviceType() == Device.Tablet?10.h:8.h),
+                SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
                 //Email
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width:90.w,
+                      width: 90.w,
                       child: Text(
                         'Email',
                         style: TextStyle(
-                          fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp,
+                          fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Expanded(
-                      child:Text(
+                      child: Text(
                         email,
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: getDeviceType() == Device.Tablet?21.sp:17.sp, fontWeight: FontWeight.w400, color: kGreyText),
+                            fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                            fontWeight: FontWeight.w400,
+                            color: kGreyText),
                       ),
                     ),
                   ],
                 ),
 
-                SizedBox(height: getDeviceType() == Device.Tablet?10.h:8.h),
+                SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
-                if (showAcceptButton) SizedBox(height: getDeviceType() == Device.Tablet?45.h:30.h),
-                if (showAcceptButton)
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomIconBtn(icon: Icons.check_circle_outline, color: Color(0xff4CAF50)),
+                SizedBox(height: getDeviceType() == Device.Tablet ? 45.h : 30.h),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomIconBtn(
+                        icon: Icons.check_circle_outline,
+                        color: Color(0xff4CAF50),
+                        onPressed: () => onAcceptButtonPressed!(),
                       ),
-                      SizedBox(
-                        width: getDeviceType() == Device.Tablet?20.w:15.w,
+                    ),
+                    SizedBox(
+                      width: getDeviceType() == Device.Tablet ? 20.w : 15.w,
+                    ),
+                    Expanded(
+                      child: CustomIconBtn(
+                        icon: Icons.cancel_outlined,
+                        color: kRed,
+                        onPressed: () => onDeclineButtonPressed!(),
                       ),
-                      Expanded(
-                          child: CustomIconBtn(icon: Icons.cancel_outlined, color: kRed,),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
+                ),
               ],
             ),
           ),

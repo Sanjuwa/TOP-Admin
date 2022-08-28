@@ -35,6 +35,11 @@ class DatabaseService {
     return sub.docs;
   }
 
+  Future<Map<String, dynamic>?> getSingleHospital(String id) async {
+    var sub = await _firestore.collection('hospitals').doc(id).get();
+    return sub.data();
+  }
+
   addHospital(String name) async {
     var ref = await _firestore.collection('hospitals').add({
       'name': name,
@@ -92,5 +97,29 @@ class DatabaseService {
         .where('date', isEqualTo: date)
         .get();
     return sub.docs;
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getPendingApprovals(Role role) async {
+    var sub = await _firestore
+        .collection('users')
+        .where('role', isEqualTo: role.name)
+        .where('isApproved', isEqualTo: false)
+        .where('isDeclined', isEqualTo: false)
+        .orderBy('name')
+        .get();
+
+    return sub.docs;
+  }
+
+  approveUser(String id) async {
+    await _firestore.collection('users').doc(id).update({
+      'isApproved': true,
+    });
+  }
+
+  declineUser(String id) async {
+    await _firestore.collection('users').doc(id).update({
+      'isDeclined': true,
+    });
   }
 }

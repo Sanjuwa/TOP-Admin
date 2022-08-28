@@ -23,7 +23,7 @@ class User {
     if(user.role == Role.Nurse){
       user.phone = doc['phone'];
     } else {
-      user.hospital = doc['hospital'];
+      user.hospital = doc['hospitalID'];
     }
 
     return user;

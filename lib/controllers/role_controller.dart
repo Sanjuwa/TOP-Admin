@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/models/shift_model.dart';
 import 'package:top_admin/services/database_service.dart';
 import 'package:top_admin/widgets/toast.dart';
@@ -9,11 +10,18 @@ class RoleController extends ChangeNotifier {
   final DatabaseService _databaseService = DatabaseService();
 
   String _selectedSpeciality = 'All';
+  Role _selectedApprovalRole = Role.Nurse;
+
 
   String get selectedSpeciality => _selectedSpeciality;
+  Role get selectedApprovalRole => _selectedApprovalRole;
 
   set selectedSpeciality(String speciality) {
     _selectedSpeciality = speciality;
+    notifyListeners();
+  }
+  set selectedApprovalRole(Role role) {
+    _selectedApprovalRole = role;
     notifyListeners();
   }
 
@@ -62,6 +70,15 @@ class RoleController extends ChangeNotifier {
     return _databaseService.getAllHospitals();
   }
 
+  Future<Hospital?> getSingleHospital(String id) async {
+    Map<String, dynamic>? data = await _databaseService.getSingleHospital(id);
+    if(data == null || data.isEmpty){
+      return null;
+    }
+    Hospital hospital = Hospital(id, data['name']);
+    return hospital;
+  }
+
   Future<bool> addHospital(String name) async {
     try{
       await _databaseService.addHospital(name);
@@ -79,6 +96,32 @@ class RoleController extends ChangeNotifier {
       return false;
     } else {
       return shift[0][shiftType] == AvailabilityStatus.Available.name;
+    }
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getPendingApprovals() async {
+    return _databaseService.getPendingApprovals(selectedApprovalRole);
+  }
+
+  Future<bool> approveUser(String id) async {
+    try{
+      await _databaseService.approveUser(id);
+      ToastBar(text: "User approved", color: Colors.green).show();
+      return true;
+    } catch(e){
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
+  }
+
+  Future<bool> declineUser(String id) async {
+    try{
+      await _databaseService.declineUser(id);
+      ToastBar(text: "User declined", color: Colors.green).show();
+      return true;
+    } catch(e){
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
     }
   }
 

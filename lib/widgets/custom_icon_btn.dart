@@ -7,13 +7,14 @@ class CustomIconBtn extends StatelessWidget {
 
   final IconData icon;
   final Color color;
+  final Function onPressed;
 
-  const CustomIconBtn({super.key, required this.icon, required this.color});
+  const CustomIconBtn({super.key, required this.icon, required this.color, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () => onPressed(),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.r),

@@ -39,8 +39,8 @@ class _PageSelectorState extends State<PageSelector> {
           Nurses(),
           Hospitals(),
           CreateJob(),
-          TimeSheet(),
-          SingleTimesheet(),
+          Approval(),
+          TimeSheets(),
         ],
       ),
 
