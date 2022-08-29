@@ -131,7 +131,7 @@ class TimeSheets extends StatelessWidget {
                                           onTap: () => Navigator.push(
                                             context,
                                             CupertinoPageRoute(
-                                              builder: (_) => SingleTimesheet(),
+                                              builder: (_) => SingleTimesheet(timeSheet: timeSheet),
                                             ),
                                           ),
                                           child: Material(
@@ -146,7 +146,7 @@ class TimeSheets extends StatelessWidget {
                                                       hospital: timeSheet.job.hospital,
                                                       nurse: timeSheet.job.nurseID!,
                                                       shiftDate: timeSheet.job.shiftDate.toEEEMMMddFormat(),
-                                                      shiftTime: "${timeSheet.startTime} to ${timeSheet.endTime}",
+                                                      shiftTime: "${timeSheet.job.shiftStartTime} to ${timeSheet.job.shiftEndTime}",
                                                       showBackStrip: true,
                                                     ),
                                                   ),
