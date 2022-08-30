@@ -62,10 +62,12 @@ class _CreateJobState extends State<CreateJob> {
       body: Backdrop(
         child: SingleChildScrollView(
           child: Padding(
-            padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(horizontal: 40.w, vertical: 30.h): widget.assignShift? EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w) :EdgeInsets.all(30.w),
+            padding: getDeviceType() == Device.Tablet?EdgeInsets.only(left: 40.w, right: 40.w, bottom: 30.h): widget.assignShift? EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w) :EdgeInsets.all(30.w),
             child: Column(
               children: [
                 SizedBox(height: ScreenUtil().statusBarHeight),
+                if(!widget.assignShift && getDeviceType() == Device.Tablet)
+                  SizedBox(height: 20.h,),
 
                 if (widget.assignShift)
                   Align(

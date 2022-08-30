@@ -30,7 +30,7 @@ class NurseDetails extends StatelessWidget {
     return Scaffold(
       body: Backdrop(
         child: Padding(
-          padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(horizontal: 40.w, vertical: 30.h):EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w),
+          padding: getDeviceType() == Device.Tablet?EdgeInsets.only(left: 40.w, right: 40.w, bottom: 30.h):EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w),
           child: Column(
             children: [
               SizedBox(height: ScreenUtil().statusBarHeight),
