@@ -30,10 +30,16 @@ class NurseDetails extends StatelessWidget {
     return Scaffold(
       body: Backdrop(
         child: Padding(
-          padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(horizontal: 40.w, vertical: 30.h):EdgeInsets.all(30.w),
+          padding: getDeviceType() == Device.Tablet?EdgeInsets.symmetric(horizontal: 40.w, vertical: 30.h):EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w),
           child: Column(
             children: [
               SizedBox(height: ScreenUtil().statusBarHeight),
+              Align(
+                alignment: Alignment.topLeft,
+                child: BackButton(
+                  color: kGreyText,
+                ),
+              ),
 
               HeadingCard(
                 title: 'Nurse’s Details',
@@ -95,7 +101,7 @@ class NurseDetails extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: getDeviceType() == Device.Tablet?25.h:20.h,
+                height: getDeviceType() == Device.Tablet?25.h:20.h
               ),
               SizedBox(
                 width: double.infinity,

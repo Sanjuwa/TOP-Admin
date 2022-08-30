@@ -54,10 +54,17 @@ class SingleTimesheet extends StatelessWidget {
     return Scaffold(
       body: Backdrop(
         child: Padding(
-          padding: EdgeInsets.all(30.w),
+          padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w),
           child: Column(
             children: [
               SizedBox(height: ScreenUtil().statusBarHeight),
+              Align(
+                alignment: Alignment.topLeft,
+                child: BackButton(
+                  color: kGreyText,
+                ),
+              ),
+
               Expanded(
                 child: HeadingCard(
                   title: 'Time Sheet',
