@@ -150,4 +150,20 @@ class DatabaseService {
 
     return sub.docs;
   }
+
+  createNotification(String text) async {
+    await _firestore.collection('notifications').add({
+      'text': text,
+      'date': DateTime.now().toString(),
+    });
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllNotifications() async {
+    var sub = await _firestore.collection('notifications').orderBy('date', descending: true).get();
+    return sub.docs;
+  }
+
+  deleteNotification(String id) async {
+    await _firestore.collection('notifications').doc(id).delete();
+  }
 }

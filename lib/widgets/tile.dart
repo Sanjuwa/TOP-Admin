@@ -6,8 +6,10 @@ import 'package:top_admin/constants.dart';
 class Tile extends StatelessWidget {
   final String name;
   final Function? onTap;
+  final bool showDeleteButton;
+  final Function? onDeletePressed;
 
-  const Tile({super.key, required this.name, this.onTap});
+  const Tile({super.key, required this.name, this.onTap, this.showDeleteButton = false, this.onDeletePressed});
 
   @override
   Widget build(BuildContext context) {
@@ -26,31 +28,41 @@ class Tile extends StatelessWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: getDeviceType() == Device.Tablet?EdgeInsets.all(20.h):EdgeInsets.all(15.h),
+                  padding: getDeviceType() == Device.Tablet
+                      ? EdgeInsets.all(20.h)
+                      : EdgeInsets.all(15.h),
                   child: Text(
                     name,
                     style: GoogleFonts.sourceSansPro(
-                      fontSize: getDeviceType() == Device.Tablet?23.sp:20.sp,
+                      fontSize: getDeviceType() == Device.Tablet ? 23.sp : 20.sp,
                       fontWeight: FontWeight.w600,
                       color: kGreyText,
                     ),
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: kRed,
-                  borderRadius: BorderRadius.horizontal(right: Radius.circular(10.r)),
-                ),
-                child: SizedBox(
-                  width: getDeviceType() == Device.Tablet?20.w:null,
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
-                    size: getDeviceType() == Device.Tablet?30:20,
-                  ),
-                ),
-              ),
+              showDeleteButton
+                  ? IconButton(
+                      onPressed: () => onDeletePressed!(),
+                      icon: Icon(
+                        Icons.delete,
+                        color: kRed,
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        color: kRed,
+                        borderRadius: BorderRadius.horizontal(right: Radius.circular(10.r)),
+                      ),
+                      child: SizedBox(
+                        width: getDeviceType() == Device.Tablet ? 20.w : null,
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: getDeviceType() == Device.Tablet ? 30 : 20,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

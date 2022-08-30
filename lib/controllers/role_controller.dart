@@ -140,6 +140,32 @@ class RoleController extends ChangeNotifier {
     return _databaseService.getManagers(hospitalID);
   }
 
+  Future<bool> createNotification(String text) async {
+    try{
+      await _databaseService.createNotification(text);
+      ToastBar(text: "Notification created", color: Colors.green).show();
+      return true;
+    } catch(e){
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllNotifications() async {
+    return _databaseService.getAllNotifications();
+  }
+
+  Future<bool> deleteNotification(String id) async {
+    try{
+      await _databaseService.deleteNotification(id);
+      ToastBar(text: "Notification deleted", color: Colors.green).show();
+      return true;
+    } catch(e){
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
+  }
+
   void refresh() => notifyListeners();
 
   List<String> _getDaysInBetween(DateTime startDate, DateTime endDate) {

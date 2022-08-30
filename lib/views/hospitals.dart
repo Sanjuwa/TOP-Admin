@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/constants.dart';
-import 'package:top_admin/views/create_hospital.dart';
+import 'package:top_admin/views/pop_ups/create_hospital.dart';
 import 'package:top_admin/views/manager_details.dart';
 import 'package:top_admin/widgets/backdrop.dart';
 import 'package:top_admin/widgets/heading_card.dart';
