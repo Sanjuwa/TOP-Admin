@@ -129,8 +129,7 @@ class DatabaseService {
   }
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getTimeSheets(String? date) async {
-    var sub = await _firestore
-        .collection('timesheets').where('date', isEqualTo: date).get();
+    var sub = await _firestore.collection('timesheets').where('date', isEqualTo: date).get();
 
     return sub.docs;
   }
@@ -138,5 +137,17 @@ class DatabaseService {
   Future<Map<String, dynamic>?> getSingleJob(String id) async {
     var sub = await _firestore.collection('jobs').doc(id).get();
     return sub.data();
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getManagers(String hospitalID) async {
+    var sub = await _firestore
+        .collection('users')
+        .where('role', isEqualTo: Role.Manager.name)
+        .where('isApproved', isEqualTo: true)
+        .where('hospitalID', isEqualTo: hospitalID)
+        .orderBy('name')
+        .get();
+
+    return sub.docs;
   }
 }

@@ -136,6 +136,10 @@ class RoleController extends ChangeNotifier {
     }
   }
 
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getManagers(String hospitalID) async {
+    return _databaseService.getManagers(hospitalID);
+  }
+
   void refresh() => notifyListeners();
 
   List<String> _getDaysInBetween(DateTime startDate, DateTime endDate) {

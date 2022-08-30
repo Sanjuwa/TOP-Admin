@@ -19,6 +19,7 @@ class ApprovalTile extends StatelessWidget {
   final bool showPhone;
   final Function? onAcceptButtonPressed;
   final Function? onDeclineButtonPressed;
+  final bool showButtons;
 
   ApprovalTile({
     super.key,
@@ -31,6 +32,7 @@ class ApprovalTile extends StatelessWidget {
     this.phone,
     required this.showPhone,
     this.onDeclineButtonPressed,
+    this.showButtons = true,
   });
 
   final TextEditingController additionalDetailsController = TextEditingController();
@@ -204,30 +206,32 @@ class ApprovalTile extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
+                if (showButtons) SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
-                SizedBox(height: getDeviceType() == Device.Tablet ? 45.h : 30.h),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomIconBtn(
-                        icon: Icons.check_circle_outline,
-                        color: Color(0xff4CAF50),
-                        onPressed: () => onAcceptButtonPressed!(),
+                if (showButtons) SizedBox(height: getDeviceType() == Device.Tablet ? 45.h : 30.h),
+
+                if (showButtons)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomIconBtn(
+                          icon: Icons.check_circle_outline,
+                          color: Color(0xff4CAF50),
+                          onPressed: () => onAcceptButtonPressed!(),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: getDeviceType() == Device.Tablet ? 20.w : 15.w,
-                    ),
-                    Expanded(
-                      child: CustomIconBtn(
-                        icon: Icons.cancel_outlined,
-                        color: kRed,
-                        onPressed: () => onDeclineButtonPressed!(),
+                      SizedBox(
+                        width: getDeviceType() == Device.Tablet ? 20.w : 15.w,
                       ),
-                    )
-                  ],
-                ),
+                      Expanded(
+                        child: CustomIconBtn(
+                          icon: Icons.cancel_outlined,
+                          color: kRed,
+                          onPressed: () => onDeclineButtonPressed!(),
+                        ),
+                      )
+                    ],
+                  ),
               ],
             ),
           ),
