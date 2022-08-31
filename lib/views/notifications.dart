@@ -6,6 +6,7 @@ import 'package:top_admin/constants.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/views/pop_ups/create_notification.dart';
 import 'package:top_admin/widgets/backdrop.dart';
+import 'package:top_admin/widgets/button.dart';
 import 'package:top_admin/widgets/heading_card.dart';
 import 'package:top_admin/widgets/tile.dart';
 import 'package:top_admin/widgets/toast.dart';
@@ -18,27 +19,6 @@ class Notifications extends StatelessWidget {
     var roleController = Provider.of<RoleController>(context);
 
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: getDeviceType() == Device.Tablet
-            ? EdgeInsets.only(right: 10.w, bottom: 10.h)
-            : EdgeInsets.zero,
-        child: getDeviceType() == Device.Tablet
-            ? FloatingActionButton.large(
-                backgroundColor: kGreen,
-                elevation: 7,
-                onPressed: () => showDialog(context: context, builder: (_) => CreateNotification()),
-                child: Icon(
-                  Icons.add,
-                  size: 50,
-                ),
-              )
-            : FloatingActionButton(
-                backgroundColor: kGreen,
-                elevation: 7,
-                onPressed: () => showDialog(context: context, builder: (_) => CreateNotification()),
-                child: Icon(Icons.add),
-              ),
-      ),
       body: Backdrop(
         child: Padding(
           padding: getDeviceType() == Device.Tablet
@@ -78,17 +58,15 @@ class Notifications extends StatelessWidget {
                                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                                     return Stack(
                                       children: [
-                                        Center(
-                                          child: Text(
-                                            'No data to show!',
-                                            style: TextStyle(
-                                                fontSize: getDeviceType() == Device.Tablet
-                                                    ? 20.sp
-                                                    : null),
-                                          ),
-                                        ),
                                         ListView(
                                           physics: AlwaysScrollableScrollPhysics(),
+                                        ),
+                                        Center(
+                                          child: Button(
+                                            text: 'Add Notification',
+                                            color: kRed,
+                                            onPressed: () => showDialog(context: context, builder: (_) => CreateNotification()),
+                                          ),
                                         ),
                                       ],
                                     );
@@ -119,9 +97,12 @@ class Notifications extends StatelessWidget {
                                               ),
                                               TextButton(
                                                 onPressed: () async {
-                                                  ToastBar(text: 'Please wait...', color: Colors.orange).show();
-                                                  bool success =
-                                                      await roleController.deleteNotification(snapshot.data![i].id);
+                                                  ToastBar(
+                                                          text: 'Please wait...',
+                                                          color: Colors.orange)
+                                                      .show();
+                                                  bool success = await roleController
+                                                      .deleteNotification(snapshot.data![i].id);
                                                   if (success) {
                                                     Navigator.pop(context);
                                                     roleController.refresh();

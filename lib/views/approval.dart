@@ -120,7 +120,7 @@ class Approval extends StatelessWidget {
                                         showPhone: roleController.selectedApprovalRole == Role.Nurse,
                                         onAcceptButtonPressed: () async {
                                           ToastBar(text: 'Please wait...', color: Colors.orange).show();
-                                          bool success = await roleController.approveUser(user.uid);
+                                          bool success = await roleController.approveUser(user);
                                           if(success){
                                             roleController.refresh();
                                           }

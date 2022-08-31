@@ -152,7 +152,7 @@ class DatabaseService {
   }
 
   createNotification(String text) async {
-    await _firestore.collection('notifications').add({
+    await _firestore.collection('notifications').doc('1').set({
       'text': text,
       'date': DateTime.now().toString(),
     });
