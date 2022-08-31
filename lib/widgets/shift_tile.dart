@@ -4,10 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/user_model.dart';
-import 'package:top_admin/widgets/custom_icon_btn.dart';
-
-import '../constants.dart';
-import 'button.dart';
+import 'package:top_admin/constants.dart';
 
 class ShiftTile extends StatelessWidget {
   final String hospital;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../constants.dart';
-import 'badge.dart';
+import 'package:top_admin/constants.dart';
+import 'package:top_admin/widgets/badge.dart';
 
 class AvailabilityTile extends StatelessWidget {
   final String dateString;
