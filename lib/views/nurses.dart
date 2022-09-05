@@ -7,8 +7,10 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:top_admin/constants.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/user_model.dart';
+import 'package:top_admin/views/notifications.dart';
 import 'package:top_admin/views/nurse_details.dart';
 import 'package:top_admin/widgets/backdrop.dart';
+import 'package:top_admin/widgets/button.dart';
 import 'package:top_admin/widgets/heading_card.dart';
 import 'package:top_admin/widgets/tile.dart';
 
@@ -115,6 +117,20 @@ class Nurses extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Button(
+                              text: 'Notifications',
+                              color: kGreen,
+                              onPressed: () => Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (_) => Notifications(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 30.h),
                         ],
                       ),
                     ),

@@ -7,10 +7,9 @@ import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/user_model.dart';
 import 'package:top_admin/widgets/approval_tile.dart';
 import 'package:top_admin/widgets/toast.dart';
-
-import '../constants.dart';
-import '../widgets/backdrop.dart';
-import '../widgets/heading_card.dart';
+import 'package:top_admin/constants.dart';
+import 'package:top_admin/widgets/backdrop.dart';
+import 'package:top_admin/widgets/heading_card.dart';
 
 class Approval extends StatelessWidget {
   @override
@@ -120,7 +119,7 @@ class Approval extends StatelessWidget {
                                         showPhone: roleController.selectedApprovalRole == Role.Nurse,
                                         onAcceptButtonPressed: () async {
                                           ToastBar(text: 'Please wait...', color: Colors.orange).show();
-                                          bool success = await roleController.approveUser(user.uid);
+                                          bool success = await roleController.approveUser(user);
                                           if(success){
                                             roleController.refresh();
                                           }

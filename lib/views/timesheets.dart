@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:top_admin/controllers/job_controller.dart';
-import 'package:top_admin/models/job_model.dart';
 import 'package:top_admin/models/timesheet_model.dart';
 import 'package:top_admin/views/single_timesheet.dart';
 import 'package:top_admin/widgets/shift_tile.dart';

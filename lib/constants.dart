@@ -32,6 +32,8 @@ final specialities = [
   'None',
 ];
 
+const approvedTemplateID = "d-3dc3240c034244c5b85a89851bd1c0af";
+
 extension FormatDate on DateTime {
   String toYYYYMMDDFormat() {
     return DateFormat('yyyy-MM-dd').format(this);

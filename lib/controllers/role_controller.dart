@@ -5,10 +5,12 @@ import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/models/shift_model.dart';
 import 'package:top_admin/models/user_model.dart';
 import 'package:top_admin/services/database_service.dart';
+import 'package:top_admin/services/email_service.dart';
 import 'package:top_admin/widgets/toast.dart';
 
 class RoleController extends ChangeNotifier {
   final DatabaseService _databaseService = DatabaseService();
+  final EmailService _emailService = EmailService();
 
   String _selectedSpeciality = 'All';
   Role _selectedApprovalRole = Role.Nurse;
@@ -114,9 +116,14 @@ class RoleController extends ChangeNotifier {
     return _databaseService.getPendingApprovals(selectedApprovalRole);
   }
 
-  Future<bool> approveUser(String id) async {
+  Future<bool> approveUser(User user) async {
     try{
-      await _databaseService.approveUser(id);
+      await _databaseService.approveUser(user.uid);
+      await _emailService.sendEmail(
+        subject: "Account Approved - TOP",
+        to: [user.email!],
+        templateID: approvedTemplateID,
+      );
       ToastBar(text: "User approved", color: Colors.green).show();
       return true;
     } catch(e){
@@ -138,6 +145,32 @@ class RoleController extends ChangeNotifier {
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getManagers(String hospitalID) async {
     return _databaseService.getManagers(hospitalID);
+  }
+
+  Future<bool> createNotification(String text) async {
+    try{
+      await _databaseService.createNotification(text);
+      ToastBar(text: "Notification created", color: Colors.green).show();
+      return true;
+    } catch(e){
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllNotifications() async {
+    return _databaseService.getAllNotifications();
+  }
+
+  Future<bool> deleteNotification(String id) async {
+    try{
+      await _databaseService.deleteNotification(id);
+      ToastBar(text: "Notification deleted", color: Colors.green).show();
+      return true;
+    } catch(e){
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
   }
 
   void refresh() => notifyListeners();

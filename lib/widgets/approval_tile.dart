@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/widgets/custom_icon_btn.dart';
-
-import '../constants.dart';
-import 'button.dart';
+import 'package:top_admin/constants.dart';
 
 class ApprovalTile extends StatelessWidget {
   final String name;
