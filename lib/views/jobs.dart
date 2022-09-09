@@ -45,54 +45,54 @@ class _JobsState extends State<Jobs> {
                 child: HeadingCard(
                   title: "Jobs",
                   child: Expanded(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 30.h),
-
-                        //filter
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: ToggleSwitch(
-                              initialLabelIndex: jobController.selectedStatus == JobStatus.Available
-                                  ? 0
-                                  : jobController.selectedStatus == JobStatus.Confirmed
-                                      ? 1
-                                      : 2,
-                              activeFgColor: Colors.white,
-                              inactiveBgColor: kDisabledSecondary,
-                              inactiveFgColor: kGreyText,
-                              totalSwitches: JobStatus.values.length,
-                              labels: [
-                                JobStatus.Available.name,
-                                JobStatus.Confirmed.name,
-                                JobStatus.Completed.name,
-                              ],
-                              fontSize: 13.sp,
-                              activeBgColor: [kOrange],
-                              cornerRadius: 5.r,
-                              animate: true,
-                              animationDuration: 200,
-                              customWidths: JobStatus.values
-                                  .map((e) => (getDeviceType() == Device.Tablet
-                                  ? e.name.length * 5 + 70.w
-                                  : e.name.length * 5 + 70.w))
-                                  .toList(),
-                              curve: Curves.easeIn,
-                              onToggle: (index) => jobController.selectedStatus = index == 0
-                                  ? JobStatus.Available
-                                  : index == 1
-                                      ? JobStatus.Confirmed
-                                      : JobStatus.Completed,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      child: Column(
+                        children: [
+                          //filter
+                          Padding(
+                            padding: getDeviceType() == Device.Tablet
+                                ? EdgeInsets.only(top: 35.h, bottom: 20.h)
+                                : EdgeInsets.only(top: 30.h, bottom: 25.h),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: ToggleSwitch(
+                                initialLabelIndex: jobController.selectedStatus == JobStatus.Available
+                                    ? 0
+                                    : jobController.selectedStatus == JobStatus.Confirmed
+                                        ? 1
+                                        : 2,
+                                activeFgColor: Colors.white,
+                                inactiveBgColor: kDisabledSecondary,
+                                inactiveFgColor: kGreyText,
+                                totalSwitches: JobStatus.values.length,
+                                labels: [
+                                  JobStatus.Available.name,
+                                  JobStatus.Confirmed.name,
+                                  JobStatus.Completed.name,
+                                ],
+                                fontSize: getDeviceType() == Device.Tablet ? 18.sp : 16.sp,
+                                activeBgColor: [kOrange],
+                                cornerRadius: 5.r,
+                                animate: true,
+                                animationDuration: 200,
+                                customWidths: JobStatus.values
+                                    .map((e) => (getDeviceType() == Device.Tablet
+                                    ? e.name.length * 5 + 70.w
+                                    : e.name.length * 5 + 70.w))
+                                    .toList(),
+                                curve: Curves.easeIn,
+                                onToggle: (index) => jobController.selectedStatus = index == 0
+                                    ? JobStatus.Available
+                                    : index == 1
+                                        ? JobStatus.Confirmed
+                                        : JobStatus.Completed,
+                              ),
                             ),
                           ),
-                        ),
 
-                        //jobs
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          //jobs
+                          Expanded(
                             child: RefreshIndicator(
                               onRefresh: () async => setState(() {}),
                               child:
@@ -117,6 +117,9 @@ class _JobsState extends State<Jobs> {
                                   }
 
                                   return ListView.builder(
+                                    padding: getDeviceType() == Device.Tablet
+                                        ? EdgeInsets.symmetric(vertical: 10.h)
+                                        : EdgeInsets.symmetric(vertical: 0),
                                     physics: BouncingScrollPhysics(
                                       parent: AlwaysScrollableScrollPhysics(),
                                     ),
@@ -127,7 +130,6 @@ class _JobsState extends State<Jobs> {
                                       return Padding(
                                         padding: EdgeInsets.only(bottom: 20.h),
                                         child: Card(
-                                          margin: EdgeInsets.symmetric(horizontal: 15.w),
                                           elevation: 5,
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10.r)),
@@ -151,8 +153,8 @@ class _JobsState extends State<Jobs> {
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

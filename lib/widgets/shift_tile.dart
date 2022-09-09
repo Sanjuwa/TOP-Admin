@@ -198,7 +198,7 @@ class ShiftTile extends StatelessWidget {
               SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
               //additional details
-              if (additionalDetailsController.text.isNotEmpty) SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
+              if (additionalDetailsController.text.isNotEmpty) SizedBox(height: getDeviceType() == Device.Tablet ? 20.h : 18.h),
               if (additionalDetailsController.text.isNotEmpty)
                 InputField(
                   text: 'Additional Details ',
