@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:top_admin/views/approval.dart';
-import 'package:top_admin/views/create_job.dart';
 import 'package:top_admin/views/hospitals.dart';
+import 'package:top_admin/views/jobs.dart';
 import 'package:top_admin/views/nurses.dart';
 import 'package:top_admin/constants.dart';
 import 'package:top_admin/views/timesheets.dart';
@@ -37,7 +37,7 @@ class _PageSelectorState extends State<PageSelector> {
         children: [
           Nurses(),
           Hospitals(),
-          CreateJob(),
+          Jobs(),
           Approval(),
           TimeSheets(),
         ],
@@ -57,7 +57,7 @@ class _PageSelectorState extends State<PageSelector> {
         items: [
           BottomNavigationBarItem(icon: getDeviceType() == Device.Tablet?Icon(Icons.account_box,size: 45):Icon(Icons.account_box), label: 'Nurses'),
           BottomNavigationBarItem(icon: getDeviceType() == Device.Tablet?Icon(Icons.apartment,size: 45):Icon(Icons.apartment), label: 'Hospitals'),
-          BottomNavigationBarItem(icon: getDeviceType() == Device.Tablet?Icon(Icons.add_box,size: 45):Icon(Icons.add_box), label: 'Job Post'),
+          BottomNavigationBarItem(icon: getDeviceType() == Device.Tablet?Icon(Icons.assignment,size: 45):Icon(Icons.assignment), label: 'Jobs'),
           BottomNavigationBarItem(icon: getDeviceType() == Device.Tablet?Icon(Icons.verified_user,size: 45):Icon(Icons.verified_user), label: 'Approval'),
           BottomNavigationBarItem(icon: getDeviceType() == Device.Tablet?Icon(Icons.pending_actions,size: 45):Icon(Icons.pending_actions), label: 'Time Sheet'),
         ],

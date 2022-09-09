@@ -9,11 +9,18 @@ import 'package:top_admin/widgets/toast.dart';
 class JobController extends ChangeNotifier{
   final DatabaseService _databaseService = DatabaseService();
   String? _timeSheetDate;
+  JobStatus _selectedStatus = JobStatus.Available;
 
   String? get timeSheetDate => _timeSheetDate;
+  JobStatus get selectedStatus => _selectedStatus;
 
   set timeSheetDate(String? date) {
     _timeSheetDate = date;
+    notifyListeners();
+  }
+
+  set selectedStatus(JobStatus selectedStatus) {
+    _selectedStatus = selectedStatus;
     notifyListeners();
   }
 
@@ -57,5 +64,9 @@ class JobController extends ChangeNotifier{
     }
 
     return timeSheets;
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getJobs() async {
+    return await _databaseService.getJobs(_selectedStatus);
   }
 }

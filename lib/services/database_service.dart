@@ -166,4 +166,13 @@ class DatabaseService {
   deleteNotification(String id) async {
     await _firestore.collection('notifications').doc(id).delete();
   }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getJobs(JobStatus status) async {
+    var sub = await _firestore
+        .collection('jobs')
+        .where('status', isEqualTo: status.name)
+        .orderBy('shiftDate', descending: true)
+        .get();
+    return sub.docs;
+  }
 }

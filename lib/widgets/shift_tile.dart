@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/user_model.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/widgets/input_filed.dart';
 
 class ShiftTile extends StatelessWidget {
   final String hospital;
@@ -13,6 +14,8 @@ class ShiftTile extends StatelessWidget {
   final String shiftTime;
   final bool showFrontStrip;
   final bool showBackStrip;
+  final String? speciality;
+  final String? additionalDetails;
 
   final TextEditingController additionalDetailsController = TextEditingController();
 
@@ -23,10 +26,12 @@ class ShiftTile extends StatelessWidget {
       required this.shiftDate,
       required this.shiftTime,
       this.showFrontStrip = false,
-      this.showBackStrip = false});
+      this.showBackStrip = false, this.speciality, this.additionalDetails,});
 
   @override
   Widget build(BuildContext context) {
+    additionalDetailsController.text = additionalDetails?.trim() ?? '';
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
@@ -46,7 +51,7 @@ class ShiftTile extends StatelessWidget {
           padding: EdgeInsets.all(15.h),
           child: Column(
             children: [
-              //Name
+              //Hospital
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -73,7 +78,37 @@ class ShiftTile extends StatelessWidget {
               ),
               SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
-              //Hospital
+              //Speciality
+              if(speciality!=null)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 90.w,
+                    child: Text(
+                      'Speciality',
+                      style: TextStyle(
+                        fontSize: getDeviceType() == Device.Tablet ? 21.sp : 18.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      speciality!,
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: getDeviceType() == Device.Tablet ? 21.sp : 17.sp,
+                          fontWeight: FontWeight.w400,
+                          color: kGreyText),
+                    ),
+                  ),
+                ],
+              ),
+              if(speciality != null)
+              SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
+
+              //Nurse
+              if(nurse.isNotEmpty)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -105,9 +140,10 @@ class ShiftTile extends StatelessWidget {
                   ),
                 ],
               ),
+              if(nurse.isNotEmpty)
               SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
-              //Speciality
+              //Date
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -134,7 +170,7 @@ class ShiftTile extends StatelessWidget {
               ),
               SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
 
-              //Email
+              //Time
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -160,6 +196,16 @@ class ShiftTile extends StatelessWidget {
                 ],
               ),
               SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
+
+              //additional details
+              if (additionalDetailsController.text.isNotEmpty) SizedBox(height: getDeviceType() == Device.Tablet ? 10.h : 8.h),
+              if (additionalDetailsController.text.isNotEmpty)
+                InputField(
+                  text: 'Additional Details ',
+                  enabled: false,
+                  controller: additionalDetailsController,
+                  multiLine: true,
+                ),
             ],
           ),
         ),
