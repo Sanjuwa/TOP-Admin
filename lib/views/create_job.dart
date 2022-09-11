@@ -40,10 +40,8 @@ class _CreateJobState extends State<CreateJob> {
 
   getHospitals() async {
     List fetchedHospitalData =
-        await Provider.of<RoleController>(context, listen: false)
-            .getAllHospitals();
-    allHospitals =
-        fetchedHospitalData.map((e) => Hospital(e.id, e['name'])).toList();
+        await Provider.of<RoleController>(context, listen: false).getAllHospitals();
+    allHospitals = fetchedHospitalData.map((e) => Hospital(e.id, e['name'])).toList();
     setState(() {});
   }
 
@@ -58,8 +56,7 @@ class _CreateJobState extends State<CreateJob> {
     var jobController = Provider.of<JobController>(context);
     var roleController = Provider.of<RoleController>(context);
     var userController = Provider.of<UserController>(context);
-    List? dropDownSpecialities =
-        widget.assignShift ? widget.nurse!.specialities : specialities;
+    List? dropDownSpecialities = widget.assignShift ? widget.nurse!.specialities : specialities;
 
     return Scaffold(
       body: Backdrop(
@@ -67,24 +64,16 @@ class _CreateJobState extends State<CreateJob> {
           child: Padding(
             padding: getDeviceType() == Device.Tablet
                 ? EdgeInsets.only(left: 40.w, right: 40.w, bottom: 30.h)
-                : widget.assignShift
-                    ? EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w)
-                    : EdgeInsets.all(30.w),
+                : EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.w),
             child: Column(
               children: [
                 SizedBox(height: ScreenUtil().statusBarHeight),
-                if (!widget.assignShift && getDeviceType() == Device.Tablet)
-                  SizedBox(
-                    height: 20.h,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: BackButton(
+                    color: kGreyText,
                   ),
-
-                if (widget.assignShift)
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: BackButton(
-                      color: kGreyText,
-                    ),
-                  ),
+                ),
 
                 //details
                 HeadingCard(
@@ -97,15 +86,10 @@ class _CreateJobState extends State<CreateJob> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
-                              bottom: getDeviceType() == Device.Tablet
-                                  ? 10.h
-                                  : 8.h),
+                              bottom: getDeviceType() == Device.Tablet ? 10.h : 8.h),
                           child: Container(
-                            alignment: getDeviceType() == Device.Tablet
-                                ? Alignment.center
-                                : null,
-                            height:
-                                getDeviceType() == Device.Tablet ? 100 : null,
+                            alignment: getDeviceType() == Device.Tablet ? Alignment.center : null,
+                            height: getDeviceType() == Device.Tablet ? 100 : null,
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(horizontal: 15.w),
                             decoration: BoxDecoration(
@@ -113,19 +97,14 @@ class _CreateJobState extends State<CreateJob> {
                                 borderRadius: BorderRadius.circular(8.r),
                                 border: Border.all(color: kDisabled)),
                             child: DropdownButton<Hospital>(
-                              iconSize:
-                                  getDeviceType() == Device.Tablet ? 30.sp : 24,
+                              iconSize: getDeviceType() == Device.Tablet ? 30.sp : 24,
                               underline: SizedBox.shrink(),
                               isExpanded: true,
                               hint: Text(
-                                allHospitals.isEmpty
-                                    ? "Loading..."
-                                    : "Hospital",
+                                allHospitals.isEmpty ? "Loading..." : "Hospital",
                                 style: TextStyle(
                                     color: kDisabled,
-                                    fontSize: getDeviceType() == Device.Tablet
-                                        ? 20.sp
-                                        : null),
+                                    fontSize: getDeviceType() == Device.Tablet ? 20.sp : null),
                               ),
                               value: selectedHospital,
                               items: allHospitals
@@ -135,9 +114,7 @@ class _CreateJobState extends State<CreateJob> {
                                         hospital.name,
                                         style: TextStyle(
                                             fontSize:
-                                                getDeviceType() == Device.Tablet
-                                                    ? 20.sp
-                                                    : null),
+                                                getDeviceType() == Device.Tablet ? 20.sp : null),
                                       )))
                                   .toList(),
                               onChanged: (value) {
@@ -148,15 +125,10 @@ class _CreateJobState extends State<CreateJob> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: getDeviceType() == Device.Tablet
-                                  ? 20.h
-                                  : 15.h),
+                              vertical: getDeviceType() == Device.Tablet ? 20.h : 15.h),
                           child: Container(
-                            alignment: getDeviceType() == Device.Tablet
-                                ? Alignment.center
-                                : null,
-                            height:
-                                getDeviceType() == Device.Tablet ? 100 : null,
+                            alignment: getDeviceType() == Device.Tablet ? Alignment.center : null,
+                            height: getDeviceType() == Device.Tablet ? 100 : null,
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(horizontal: 15.w),
                             decoration: BoxDecoration(
@@ -164,17 +136,14 @@ class _CreateJobState extends State<CreateJob> {
                                 borderRadius: BorderRadius.circular(8.r),
                                 border: Border.all(color: kDisabled)),
                             child: DropdownButton(
-                              iconSize:
-                                  getDeviceType() == Device.Tablet ? 30.sp : 24,
+                              iconSize: getDeviceType() == Device.Tablet ? 30.sp : 24,
                               underline: SizedBox.shrink(),
                               isExpanded: true,
                               hint: Text(
                                 "Speciality",
                                 style: TextStyle(
                                     color: kDisabled,
-                                    fontSize: getDeviceType() == Device.Tablet
-                                        ? 20.sp
-                                        : null),
+                                    fontSize: getDeviceType() == Device.Tablet ? 20.sp : null),
                               ),
                               value: selectedSpeciality,
                               items: dropDownSpecialities!
@@ -184,23 +153,18 @@ class _CreateJobState extends State<CreateJob> {
                                         speciality,
                                         style: TextStyle(
                                             fontSize:
-                                                getDeviceType() == Device.Tablet
-                                                    ? 20.sp
-                                                    : null),
+                                                getDeviceType() == Device.Tablet ? 20.sp : null),
                                       )))
                                   .toList(),
                               onChanged: (value) {
-                                setState(
-                                    () => selectedSpeciality = value as String);
+                                setState(() => selectedSpeciality = value as String);
                               },
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: getDeviceType() == Device.Tablet
-                                  ? 20.h
-                                  : 15.h),
+                              vertical: getDeviceType() == Device.Tablet ? 20.h : 15.h),
                           child: GestureDetector(
                             onTap: () async {
                               DateTime? pickedDate = await showDatePicker(
@@ -211,8 +175,7 @@ class _CreateJobState extends State<CreateJob> {
                               );
 
                               selectedShiftDate = pickedDate;
-                              shiftDate.text = DateFormat('EEEE MMMM dd')
-                                  .format(pickedDate!);
+                              shiftDate.text = DateFormat('EEEE MMMM dd').format(pickedDate!);
                             },
                             child: InputField(
                               text: 'Shift Date',
@@ -223,9 +186,7 @@ class _CreateJobState extends State<CreateJob> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: getDeviceType() == Device.Tablet
-                                  ? 20.h
-                                  : 15.h),
+                              vertical: getDeviceType() == Device.Tablet ? 20.h : 15.h),
                           child: GestureDetector(
                             onTap: () async {
                               TimeOfDay? pickedTime = await showTimePicker(
@@ -244,9 +205,7 @@ class _CreateJobState extends State<CreateJob> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: getDeviceType() == Device.Tablet
-                                  ? 20.h
-                                  : 15.h),
+                              vertical: getDeviceType() == Device.Tablet ? 20.h : 15.h),
                           child: GestureDetector(
                             onTap: () async {
                               TimeOfDay? pickedTime = await showTimePicker(
@@ -265,15 +224,10 @@ class _CreateJobState extends State<CreateJob> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: getDeviceType() == Device.Tablet
-                                  ? 20.h
-                                  : 15.h),
+                              vertical: getDeviceType() == Device.Tablet ? 20.h : 15.h),
                           child: Container(
-                            alignment: getDeviceType() == Device.Tablet
-                                ? Alignment.center
-                                : null,
-                            height:
-                                getDeviceType() == Device.Tablet ? 100 : null,
+                            alignment: getDeviceType() == Device.Tablet ? Alignment.center : null,
+                            height: getDeviceType() == Device.Tablet ? 100 : null,
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(horizontal: 15.w),
                             decoration: BoxDecoration(
@@ -282,16 +236,13 @@ class _CreateJobState extends State<CreateJob> {
                                 border: Border.all(color: kDisabled)),
                             child: DropdownButton<String?>(
                               underline: SizedBox.shrink(),
-                              iconSize:
-                                  getDeviceType() == Device.Tablet ? 30.sp : 24,
+                              iconSize: getDeviceType() == Device.Tablet ? 30.sp : 24,
                               isExpanded: true,
                               hint: Text(
                                 "Shift Type",
                                 style: TextStyle(
                                     color: kDisabled,
-                                    fontSize: getDeviceType() == Device.Tablet
-                                        ? 20.sp
-                                        : null),
+                                    fontSize: getDeviceType() == Device.Tablet ? 20.sp : null),
                               ),
                               value: selectedShiftType,
                               items: [
@@ -301,9 +252,7 @@ class _CreateJobState extends State<CreateJob> {
                                       'AM',
                                       style: TextStyle(
                                           fontSize:
-                                              getDeviceType() == Device.Tablet
-                                                  ? 20.sp
-                                                  : null),
+                                              getDeviceType() == Device.Tablet ? 20.sp : null),
                                     )),
                                 DropdownMenuItem(
                                     value: 'PM',
@@ -311,9 +260,7 @@ class _CreateJobState extends State<CreateJob> {
                                       'PM',
                                       style: TextStyle(
                                           fontSize:
-                                              getDeviceType() == Device.Tablet
-                                                  ? 20.sp
-                                                  : null),
+                                              getDeviceType() == Device.Tablet ? 20.sp : null),
                                     )),
                                 DropdownMenuItem(
                                     value: 'NS',
@@ -321,9 +268,7 @@ class _CreateJobState extends State<CreateJob> {
                                       'NS',
                                       style: TextStyle(
                                           fontSize:
-                                              getDeviceType() == Device.Tablet
-                                                  ? 20.sp
-                                                  : null),
+                                              getDeviceType() == Device.Tablet ? 20.sp : null),
                                     )),
                               ],
                               onChanged: (value) {
@@ -334,9 +279,7 @@ class _CreateJobState extends State<CreateJob> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: getDeviceType() == Device.Tablet
-                                  ? 20.h
-                                  : 15.h),
+                              vertical: getDeviceType() == Device.Tablet ? 20.h : 15.h),
                           child: InputField(
                             text: 'Additional Details (Optional)',
                             controller: additionalDetails,
@@ -348,8 +291,7 @@ class _CreateJobState extends State<CreateJob> {
                   ),
                 ),
 
-                SizedBox(
-                    height: getDeviceType() == Device.Tablet ? 100.h : 50.h),
+                SizedBox(height: getDeviceType() == Device.Tablet ? 100.h : 50.h),
                 SizedBox(
                   width: double.infinity,
                   child: Button(
@@ -363,13 +305,9 @@ class _CreateJobState extends State<CreateJob> {
                           selectedShiftType == null ||
                           selectedSpeciality == null ||
                           selectedHospital == null) {
-                        ToastBar(
-                                text: 'Please fill relevant fields!',
-                                color: Colors.red)
-                            .show();
+                        ToastBar(text: 'Please fill relevant fields!', color: Colors.red).show();
                       } else {
-                        ToastBar(text: "Please wait...", color: Colors.orange)
-                            .show();
+                        ToastBar(text: "Please wait...", color: Colors.orange).show();
 
                         String? adminID = await userController.getUserID();
                         if (adminID != null) {
@@ -403,32 +341,27 @@ class _CreateJobState extends State<CreateJob> {
 
                           ///assign job to nurse
                           else {
-                            bool isAvailable =
-                                await roleController.isNurseAvailable(
+                            bool isAvailable = await roleController.isNurseAvailable(
                               widget.nurse!.uid,
                               job.shiftDate.toYYYYMMDDFormat(),
                               job.shiftType,
                             );
 
                             if (isAvailable) {
-                              bool isSuccess = await jobController
-                                  .assignJobToNurse(job, widget.nurse!.uid);
+                              bool isSuccess =
+                                  await jobController.assignJobToNurse(job, widget.nurse!.uid);
                               if (isSuccess) {
                                 Navigator.pop(context);
                               }
                             } else {
                               ToastBar(
-                                      text:
-                                          'Nurse is not available in the selected shift!',
+                                      text: 'Nurse is not available in the selected shift!',
                                       color: Colors.red)
                                   .show();
                             }
                           }
                         } else {
-                          ToastBar(
-                                  text: 'Authentication Error!',
-                                  color: Colors.red)
-                              .show();
+                          ToastBar(text: 'Authentication Error!', color: Colors.red).show();
                         }
                       }
                     },

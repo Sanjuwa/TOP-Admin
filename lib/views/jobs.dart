@@ -9,6 +9,7 @@ import 'package:top_admin/constants.dart';
 import 'package:top_admin/controllers/job_controller.dart';
 import 'package:top_admin/models/job_model.dart';
 import 'package:top_admin/views/create_job.dart';
+import 'package:top_admin/views/job_details.dart';
 import 'package:top_admin/widgets/backdrop.dart';
 import 'package:top_admin/widgets/heading_card.dart';
 import 'package:top_admin/widgets/shift_tile.dart';
@@ -129,21 +130,33 @@ class _JobsState extends State<Jobs> {
 
                                       return Padding(
                                         padding: EdgeInsets.only(bottom: 20.h),
-                                        child: Card(
-                                          elevation: 5,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10.r)),
-                                          child: ShiftTile(
-                                            hospital: job.hospital,
-                                            nurse: job.nurseID ?? '',
-                                            shiftTime:
-                                                "${job.shiftStartTime} to ${job.shiftEndTime}",
-                                            shiftDate:
-                                                DateFormat('EEEE MMMM dd').format(job.shiftDate),
-                                            speciality: job.speciality,
-                                            additionalDetails: job.additionalDetails,
-                                            showBackStrip: false,
-                                            showFrontStrip: true,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            if (jobController.selectedStatus != JobStatus.Completed) {
+                                              Navigator.push(
+                                                  context,
+                                                  CupertinoPageRoute(
+                                                      builder: (_) =>
+                                                          JobDetails(job: job, status: jobController.selectedStatus)))
+                                                  .then((value) => setState(() {}));
+                                            }
+                                          },
+                                          child: Card(
+                                            elevation: 5,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10.r)),
+                                            child: ShiftTile(
+                                              hospital: job.hospital,
+                                              nurse: job.nurseID ?? '',
+                                              shiftTime:
+                                                  "${job.shiftStartTime} to ${job.shiftEndTime}",
+                                              shiftDate:
+                                                  DateFormat('EEEE MMMM dd').format(job.shiftDate),
+                                              speciality: job.speciality,
+                                              additionalDetails: job.additionalDetails,
+                                              showBackStrip: false,
+                                              showFrontStrip: true,
+                                            ),
                                           ),
                                         ),
                                       );

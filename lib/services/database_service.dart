@@ -175,4 +175,14 @@ class DatabaseService {
         .get();
     return sub.docs;
   }
+
+  deleteJob(String id) async {
+    await _firestore.collection('jobs').doc(id).delete();
+  }
+
+  unBookNurse(String nurseID, String shiftID, String shiftType) async {
+    await _firestore.collection('users').doc(nurseID).collection('shifts').doc(shiftID).update({
+      shiftType: AvailabilityStatus.Available.name,
+    });
+  }
 }

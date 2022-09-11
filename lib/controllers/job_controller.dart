@@ -69,4 +69,18 @@ class JobController extends ChangeNotifier{
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getJobs() async {
     return await _databaseService.getJobs(_selectedStatus);
   }
+
+  Future<bool> deleteJob(Job job, JobStatus status) async {
+    try {
+      await _databaseService.deleteJob(job.id);
+      if (status != JobStatus.Available) {
+        await _databaseService.unBookNurse(job.nurseID!, job.shiftDate.toYYYYMMDDFormat(), job.shiftType);
+      }
+      ToastBar(text: "Job Deleted Successfully!", color: Colors.green).show();
+      return true;
+    } catch (e) {
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
+  }
 }
