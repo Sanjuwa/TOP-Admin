@@ -6,8 +6,10 @@ import 'package:top_admin/controllers/role_controller.dart';
 import 'package:top_admin/models/hospital_model.dart';
 import 'package:top_admin/widgets/custom_icon_btn.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/widgets/toast.dart';
 
 class ApprovalTile extends StatelessWidget {
+  final String id;
   final String name;
   final String? hospitalID;
   final String speciality;
@@ -18,6 +20,7 @@ class ApprovalTile extends StatelessWidget {
   final Function? onAcceptButtonPressed;
   final Function? onDeclineButtonPressed;
   final bool showButtons;
+  final bool showDeleteButton;
 
   ApprovalTile({
     super.key,
@@ -31,6 +34,8 @@ class ApprovalTile extends StatelessWidget {
     required this.showPhone,
     this.onDeclineButtonPressed,
     this.showButtons = true,
+    this.showDeleteButton = false,
+    required this.id,
   });
 
   final TextEditingController additionalDetailsController = TextEditingController();
@@ -229,6 +234,52 @@ class ApprovalTile extends StatelessWidget {
                         ),
                       )
                     ],
+                  ),
+
+                if (showDeleteButton)
+                  SizedBox(height: getDeviceType() == Device.Tablet ? 45.h : 30.h),
+                if (showDeleteButton)
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomIconBtn(
+                      icon: Icons.delete,
+                      color: kRed,
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          content: Text('Are you sure you want to delete the manager?'),
+                          actions: [
+                            TextButton(
+                              child: Text(
+                                'Yes',
+                                style: TextStyle(
+                                  color: kGreen,
+                                ),
+                              ),
+                              onPressed: () async {
+                                ToastBar(text: "Please wait...", color: Colors.orange).show();
+                                bool isDeleted =
+                                    await Provider.of<RoleController>(context, listen: false)
+                                        .deleteUser(id);
+                                if (isDeleted) {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                }
+                              },
+                            ),
+                            TextButton(
+                              child: Text(
+                                'No',
+                                style: TextStyle(
+                                  color: kGreen,
+                                ),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
               ],
             ),

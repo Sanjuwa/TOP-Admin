@@ -125,6 +125,7 @@ class DatabaseService {
   declineUser(String id) async {
     await _firestore.collection('users').doc(id).update({
       'isDeclined': true,
+      'isApproved': false,
     });
   }
 

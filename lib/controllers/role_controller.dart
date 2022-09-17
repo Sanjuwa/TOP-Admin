@@ -173,6 +173,17 @@ class RoleController extends ChangeNotifier {
     }
   }
 
+  Future<bool> deleteUser(String id) async {
+    try {
+      await _databaseService.declineUser(id);
+      ToastBar(text: "User Deleted Successfully!", color: Colors.green).show();
+      return true;
+    } catch (e) {
+      ToastBar(text: e.toString(), color: Colors.red).show();
+      return false;
+    }
+  }
+
   void refresh() => notifyListeners();
 
   List<String> _getDaysInBetween(DateTime startDate, DateTime endDate) {

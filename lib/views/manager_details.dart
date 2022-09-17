@@ -107,6 +107,7 @@ class ManagerDetails extends StatelessWidget {
                                       return Padding(
                                         padding: EdgeInsets.only(top: 15.h),
                                         child: ApprovalTile(
+                                          id: user.uid,
                                           name: user.name!,
                                           email: user.email!,
                                           hospitalID: user.hospital,
@@ -114,6 +115,7 @@ class ManagerDetails extends StatelessWidget {
                                           showHospital: true,
                                           showPhone: false,
                                           showButtons: false,
+                                          showDeleteButton: true,
                                         ),
                                       );
                                     },

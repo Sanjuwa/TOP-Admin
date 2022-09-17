@@ -110,6 +110,7 @@ class Approval extends StatelessWidget {
                                       User user = User.fromDocument(snapshot.data![i]);
 
                                       return ApprovalTile(
+                                        id: user.uid,
                                         name: user.name!,
                                         email: user.email!,
                                         hospitalID: user.hospital,
