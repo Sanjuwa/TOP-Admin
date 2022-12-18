@@ -8,10 +8,14 @@ import 'package:top_admin/widgets/input_filed.dart';
 import 'package:top_admin/widgets/toast.dart';
 
 class CreateNotification extends StatelessWidget {
+  final String? text;
   final TextEditingController notificationText = TextEditingController();
+
+  CreateNotification({super.key, this.text});
 
   @override
   Widget build(BuildContext context) {
+    notificationText.text = text ?? '';
     var roleController = Provider.of<RoleController>(context);
 
     return AlertDialog(
@@ -34,7 +38,7 @@ class CreateNotification extends StatelessWidget {
                     ? EdgeInsets.symmetric(horizontal: 40.w, vertical: 12.h)
                     : EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
                 child: Text(
-                  "Create Notification",
+                  "${notificationText.text.isEmpty ? 'Create' : 'Edit'} Notification",
                   style: TextStyle(
                     fontSize: getDeviceType() == Device.Tablet ? 25.sp : 22.sp,
                     color: Colors.white,
@@ -54,7 +58,7 @@ class CreateNotification extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: Button(
-                  text: 'Create',
+                  text: notificationText.text.isEmpty ? 'Create' : 'Edit',
                   color: kRed,
                   onPressed: () async {
                     ToastBar(text: 'Please wait...', color: Colors.orange).show();

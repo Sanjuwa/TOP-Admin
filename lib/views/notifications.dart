@@ -81,38 +81,52 @@ class Notifications extends StatelessWidget {
                                     ),
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (context, i) {
-                                      return Tile(
-                                        name: snapshot.data![i]['text'],
-                                        showDeleteButton: true,
-                                        onDeletePressed: () => showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            content: Text(
-                                              "Are you sure you want to delete this notification?",
+                                      return Column(
+                                        children: [
+                                          Tile(
+                                            name: snapshot.data![i]['text'],
+                                            showDeleteButton: true,
+                                            onDeletePressed: () => showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                content: Text(
+                                                  "Are you sure you want to delete this notification?",
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () => Navigator.pop(context),
+                                                    child: Text('No'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      ToastBar(
+                                                              text: 'Please wait...',
+                                                              color: Colors.orange)
+                                                          .show();
+                                                      bool success = await roleController
+                                                          .deleteNotification(snapshot.data![i].id);
+                                                      if (success) {
+                                                        Navigator.pop(context);
+                                                        roleController.refresh();
+                                                      }
+                                                    },
+                                                    child: Text('Yes'),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(context),
-                                                child: Text('No'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () async {
-                                                  ToastBar(
-                                                          text: 'Please wait...',
-                                                          color: Colors.orange)
-                                                      .show();
-                                                  bool success = await roleController
-                                                      .deleteNotification(snapshot.data![i].id);
-                                                  if (success) {
-                                                    Navigator.pop(context);
-                                                    roleController.refresh();
-                                                  }
-                                                },
-                                                child: Text('Yes'),
-                                              ),
-                                            ],
                                           ),
-                                        ),
+
+                                          Center(
+                                            child: Button(
+                                              text: 'Edit Notification',
+                                              fontSize: 16.sp,
+                                              padding: 8.w,
+                                              color: kRed,
+                                              onPressed: () => showDialog(context: context, builder: (_) => CreateNotification(text: snapshot.data![i]['text'],)),
+                                            ),
+                                          )
+                                        ],
                                       );
                                     },
                                   );
