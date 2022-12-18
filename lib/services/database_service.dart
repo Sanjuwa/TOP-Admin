@@ -177,6 +177,16 @@ class DatabaseService {
     return sub.docs;
   }
 
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getJobsForNurse(String nurseID) async {
+    var sub = await _firestore
+        .collection('jobs')
+        .where('status', isEqualTo: JobStatus.Confirmed.name)
+        .where('nurse', isEqualTo: nurseID)
+        .orderBy('shiftDate', descending: true)
+        .get();
+    return sub.docs;
+  }
+
   deleteJob(String id) async {
     await _firestore.collection('jobs').doc(id).delete();
   }

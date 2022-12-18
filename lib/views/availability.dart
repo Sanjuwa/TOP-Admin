@@ -116,6 +116,7 @@ class Availability extends StatelessWidget {
                                         am: shift.am,
                                         pm: shift.pm,
                                         ns: shift.ns,
+                                        nurseID: user.uid,
                                       );
                                     },
                                   );

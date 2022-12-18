@@ -70,6 +70,10 @@ class JobController extends ChangeNotifier{
     return await _databaseService.getJobs(_selectedStatus);
   }
 
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getJobsForNurse(String nurseID) async {
+    return await _databaseService.getJobsForNurse(nurseID);
+  }
+
   Future<bool> deleteJob(Job job, JobStatus status) async {
     try {
       await _databaseService.deleteJob(job.id);
