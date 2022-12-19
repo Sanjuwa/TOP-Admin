@@ -15,12 +15,13 @@ import '../models/job_model.dart';
 class AvailabilityTile extends StatelessWidget {
   final String nurseID;
   final String dateString;
+  final DateTime date;
   final AvailabilityStatus am;
   final AvailabilityStatus pm;
   final AvailabilityStatus ns;
 
   const AvailabilityTile(
-      {super.key, required this.dateString, required this.am, required this.pm, required this.ns, required this.nurseID,});
+      {super.key, required this.dateString, required this.am, required this.pm, required this.ns, required this.nurseID, required this.date,});
 
   void onBadgeTapped(String shift, AvailabilityStatus availabilityStatus, BuildContext context){
     var jobController = Provider.of<JobController>(context, listen: false);
@@ -35,7 +36,7 @@ class AvailabilityTile extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(30.w),
           child: FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
-            future: jobController.getJobsForNurse(nurseID),
+            future: jobController.getJobsForNurse(nurseID, shift, date),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -67,33 +68,21 @@ class AvailabilityTile extends StatelessWidget {
 
                   return Padding(
                     padding: EdgeInsets.only(bottom: 20.h),
-                    child: GestureDetector(
-                      onTap: () {
-                        if (jobController.selectedStatus != JobStatus.Completed) {
-                          // Navigator.push(
-                          //     context,
-                          //     CupertinoPageRoute(
-                          //         builder: (_) =>
-                          //             JobDetails(job: job, status: jobController.selectedStatus)))
-                          //     .then((value) => setState(() {}));
-                        }
-                      },
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.r)),
-                        child: ShiftTile(
-                          hospital: job.hospital,
-                          nurse: job.nurseID ?? '',
-                          shiftTime:
-                          "${job.shiftStartTime} to ${job.shiftEndTime}",
-                          shiftDate:
-                          DateFormat('EEEE MMMM dd').format(job.shiftDate),
-                          speciality: job.speciality,
-                          additionalDetails: job.additionalDetails,
-                          showBackStrip: false,
-                          showFrontStrip: true,
-                        ),
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: ShiftTile(
+                        hospital: job.hospital,
+                        nurse: job.nurseID ?? '',
+                        shiftTime:
+                        "${job.shiftStartTime} to ${job.shiftEndTime}",
+                        shiftDate:
+                        DateFormat('EEEE MMMM dd').format(job.shiftDate),
+                        speciality: job.speciality,
+                        additionalDetails: job.additionalDetails,
+                        showBackStrip: false,
+                        showFrontStrip: true,
                       ),
                     ),
                   );
