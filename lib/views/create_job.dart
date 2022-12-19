@@ -341,24 +341,24 @@ class _CreateJobState extends State<CreateJob> {
 
                           ///assign job to nurse
                           else {
-                            bool isAvailable = await roleController.isNurseAvailable(
-                              widget.nurse!.uid,
-                              job.shiftDate.toYYYYMMDDFormat(),
-                              job.shiftType,
-                            );
+                            // bool isAvailable = await roleController.isNurseAvailable(
+                            //   widget.nurse!.uid,
+                            //   job.shiftDate.toYYYYMMDDFormat(),
+                            //   job.shiftType,
+                            // );
 
-                            if (isAvailable) {
+                            // if (isAvailable) {
                               bool isSuccess =
                                   await jobController.assignJobToNurse(job, widget.nurse!.uid);
                               if (isSuccess) {
                                 Navigator.pop(context);
                               }
-                            } else {
-                              ToastBar(
-                                      text: 'Nurse is not available in the selected shift!',
-                                      color: Colors.red)
-                                  .show();
-                            }
+                            // } else {
+                            //   ToastBar(
+                            //           text: 'Nurse is not available in the selected shift!',
+                            //           color: Colors.red)
+                            //       .show();
+                            // }
                           }
                         } else {
                           ToastBar(text: 'Authentication Error!', color: Colors.red).show();

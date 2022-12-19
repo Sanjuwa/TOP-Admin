@@ -88,9 +88,20 @@ class DatabaseService {
       'nurse': nurseID,
     });
 
-    await _firestore.collection('users').doc(nurseID).collection('shifts').doc(shiftID).update({
-      shiftType: AvailabilityStatus.Booked.name,
-    });
+    DocumentSnapshot<Map<String, dynamic>> docRef = await _firestore.collection('users').doc(nurseID).collection('shifts').doc(shiftID).get();
+    if(!docRef.exists){
+      await _firestore.collection('users').doc(nurseID).collection('shifts').doc(shiftID).set({
+        'AM': AvailabilityStatus.NotAvailable.name,
+        'PM': AvailabilityStatus.NotAvailable.name,
+        'NS': AvailabilityStatus.NotAvailable.name,
+        'date': shiftID
+      });
+    }
+
+      await _firestore.collection('users').doc(nurseID).collection('shifts').doc(shiftID).update({
+        shiftType: AvailabilityStatus.Booked.name,
+      });
+
   }
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getSingleAvailability(
