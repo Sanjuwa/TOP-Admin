@@ -16,6 +16,8 @@ enum Role { Nurse, Manager }
 
 enum JobStatus { Confirmed, Available, Completed }
 
+enum TimeSheetType { Form, Image }
+
 Device getDeviceType() {
   final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
   return data.size.shortestSide < 600 ? Device.Phone :Device.Tablet;

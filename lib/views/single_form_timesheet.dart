@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:top_admin/constants.dart';
-import 'package:top_admin/models/timesheet_model.dart';
+import 'package:top_admin/models/form_timesheet_model.dart';
 import 'package:top_admin/widgets/backdrop.dart';
 import 'package:top_admin/widgets/button.dart';
 import 'package:top_admin/widgets/heading_card.dart';
@@ -10,10 +10,10 @@ import 'package:top_admin/widgets/image_popup.dart';
 import 'package:top_admin/widgets/input_filed.dart';
 import 'package:top_admin/widgets/shift_tile.dart';
 
-class SingleTimesheet extends StatelessWidget {
-  final TimeSheet timeSheet;
+class SingleFormTimesheet extends StatelessWidget {
+  final FormTimeSheet timeSheet;
 
-  SingleTimesheet({super.key, required this.timeSheet});
+  SingleFormTimesheet({super.key, required this.timeSheet});
 
   final TextEditingController startTime = TextEditingController();
   final TextEditingController endTime = TextEditingController();

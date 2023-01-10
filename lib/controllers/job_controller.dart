@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:top_admin/constants.dart';
+import 'package:top_admin/models/image_timesheet_model.dart';
 import 'package:top_admin/models/job_model.dart';
+import 'package:top_admin/models/form_timesheet_model.dart';
 import 'package:top_admin/models/timesheet_model.dart';
 import 'package:top_admin/services/database_service.dart';
 import 'package:top_admin/widgets/toast.dart';
@@ -53,14 +55,21 @@ class JobController extends ChangeNotifier{
     }
   }
 
-  Future<List<TimeSheet>> getTimeSheets() async {
+  Future<List<Timesheet>> getTimeSheets() async {
     List<QueryDocumentSnapshot<Map<String, dynamic>>> timeSheetDetails = await _databaseService.getTimeSheets(_timeSheetDate);
-    List<TimeSheet> timeSheets = [];
+    List<Timesheet> timeSheets = [];
     for(var timeSheetData in timeSheetDetails){
       Map<String, dynamic>? jobDetails = await _databaseService.getSingleJob(timeSheetData['jobID']);
       Job job = Job.createJobFromMap(jobDetails!, timeSheetData['jobID']);
-      TimeSheet timeSheet = TimeSheet.fromDocument(timeSheetData, job);
-      timeSheets.add(timeSheet);
+
+      late Timesheet timesheet;
+      if(timeSheetData["type"] == TimeSheetType.Form.name){
+        timesheet = FormTimeSheet.fromDocument(timeSheetData, job);
+      } else {
+        timesheet = ImageTimesheet.fromDocument(timeSheetData, job);
+      }
+
+        timeSheets.add(timesheet);
     }
 
     return timeSheets;

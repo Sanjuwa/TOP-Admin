@@ -4,8 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:top_admin/controllers/job_controller.dart';
+import 'package:top_admin/models/form_timesheet_model.dart';
+import 'package:top_admin/models/image_timesheet_model.dart';
 import 'package:top_admin/models/timesheet_model.dart';
-import 'package:top_admin/views/single_timesheet.dart';
+import 'package:top_admin/views/single_form_timesheet.dart';
+import 'package:top_admin/views/single_image_timesheet.dart';
 import 'package:top_admin/widgets/shift_tile.dart';
 import 'package:top_admin/constants.dart';
 import 'package:top_admin/widgets/backdrop.dart';
@@ -92,8 +95,7 @@ class TimeSheets extends StatelessWidget {
                           Expanded(
                             child: RefreshIndicator(
                               onRefresh: () async => jobController.refresh(),
-                              child:
-                                  FutureBuilder<List<TimeSheet>>(
+                              child: FutureBuilder<List<Timesheet>>(
                                 future: jobController.getTimeSheets(),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -119,7 +121,7 @@ class TimeSheets extends StatelessWidget {
                                     ),
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (context, i) {
-                                      TimeSheet timeSheet = snapshot.data![i];
+                                      Timesheet timeSheet = snapshot.data![i];
 
                                       return Padding(
                                         padding: EdgeInsets.only(
@@ -129,7 +131,11 @@ class TimeSheets extends StatelessWidget {
                                           onTap: () => Navigator.push(
                                             context,
                                             CupertinoPageRoute(
-                                              builder: (_) => SingleTimesheet(timeSheet: timeSheet),
+                                              builder: (_) => timeSheet is FormTimeSheet
+                                                  ? SingleFormTimesheet(timeSheet: timeSheet)
+                                                  : timeSheet is ImageTimesheet
+                                                      ? SingleImageTimesheet(timeSheet: timeSheet)
+                                                      : SizedBox(),
                                             ),
                                           ),
                                           child: Material(
@@ -143,8 +149,10 @@ class TimeSheets extends StatelessWidget {
                                                     child: ShiftTile(
                                                       hospital: timeSheet.job.hospital,
                                                       nurse: timeSheet.job.nurseID!,
-                                                      shiftDate: timeSheet.job.shiftDate.toEEEMMMddFormat(),
-                                                      shiftTime: "${timeSheet.job.shiftStartTime} to ${timeSheet.job.shiftEndTime}",
+                                                      shiftDate: timeSheet.job.shiftDate
+                                                          .toEEEMMMddFormat(),
+                                                      shiftTime:
+                                                          "${timeSheet.job.shiftStartTime} to ${timeSheet.job.shiftEndTime}",
                                                       showBackStrip: true,
                                                     ),
                                                   ),
